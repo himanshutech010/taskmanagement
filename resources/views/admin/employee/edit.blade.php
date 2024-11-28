@@ -4,11 +4,11 @@
 
 <div class="content-wrapper">
             <div class="page-header">
-              <h3 class="page-title"> Edit a User </h3>
+              <h3 class="page-title"> Edit a Employee </h3>
               <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 
-                <li class="breadcrumb-item"><a href="{{ route('admin.employee.index') }}" class="btn btn-block btn-lg btn-gradient-primary">Back</a>
+                <li class="breadcrumb-item"><a href="{{ route('admin.employee.index') }}" class="btn btn-block btn-lg btn-gradient-success">Back</a>
               </li>
                 
               </ol>
@@ -90,7 +90,7 @@
                               {{-- password change --}}
 <div class="row mb-4">
 
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-6">
     <label id="password" for="password" >Password</label>
     <input type="password" class="form-control" type="password" name="password" placeholder="Enter Your Password" >
         @if($errors->has("password"))
@@ -98,7 +98,7 @@
         @endif
   </div>
   
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-6">
     <label for="password_confirmation" >Confirm Password</label>
     <input type="password" name="password_confirmation"  id="password_confirmation" class="form-control" placeholder="Re-enter Your Password" >
     @if($errors->has("password_confirmation"))
@@ -133,7 +133,7 @@
                               <div class="input-group ml-2">
                                   <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                                   <span class="input-group-append">
-                                      <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                                      <button class="file-upload-browse btn btn-gradient-success" type="button">Upload</button>
                                   </span>
                               </div>
                               @if($errors->has("image"))
@@ -151,7 +151,7 @@
                                       <div class="input-group ml-2">
                                           <input type="text" class="form-control file-upload-info " value="" disabled placeholder="Upload Image">
                                           <span class="input-group-append">
-                                              <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                                              <button class="file-upload-browse btn btn-gradient-success" type="button">Upload</button>
                                           </span>
                                       </div>
                                   </div>
@@ -187,7 +187,7 @@
                 @endif
             </div>
         </div>
-        <div class="form-group col-md-4"><button type="submit" class="btn btn-gradient-primary me-2 ml-3" style="width: 150px">Update</button></div>
+        <div class="form-group col-md-4"><button type="submit" class="btn btn-gradient-success me-2 ml-3" style="width: 150px">Update</button></div>
         
       </div>
                               </div>
@@ -270,7 +270,7 @@
 
                   </div>
                       
-                      <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                      <button type="submit" class="btn btn-gradient-success me-2">Submit</button>
                       
                     </form>
                   </div>

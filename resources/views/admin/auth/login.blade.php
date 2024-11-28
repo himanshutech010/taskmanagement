@@ -27,14 +27,14 @@
                   <div class="my-2 d-flex justify-content-between align-items-center">
                     <div class="form-check">
                       <label class="form-check-label ">
-                        <input type="checkbox" class="form-check-input"> Keep me signed in </label>
+                        <input type="checkbox" class="form-check-input" style="border: solid #629a43"> Keep me signed in </label>
                     </div>
                     <a href="{{ route('admin.resetpassword') }}" class="auth-link text-black">Forgot password?</a>
                   </div>
 
 
                   <div class="mt-3 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-block btn-gradient-primary text-center btn-lg font-weight-medium auth-form-btn" type="submit">SIGN IN</button>
+                    <button class="btn btn-block btn-gradient-success text-center btn-lg font-weight-medium auth-form-btn" type="submit">SIGN IN</button>
                   </div>
                   
                         

@@ -18,3 +18,6 @@
     padding: 5px!important;
 }
 
+.form-check .form-check-label input[type="checkbox"] + .input-helper:before {
+    border: solid #629a43 !important;
+}
