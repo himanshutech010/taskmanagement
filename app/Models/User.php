@@ -20,7 +20,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'user_name',
         'password',
+        'phone',
+        'date_of_birth',
+        'gender',
+        'image',
+        'role',
+        'description',
+        'status',
+        'is_online',
     ];
 
     /**
@@ -40,5 +49,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_online' => 'boolean',// Cast the is_online attribute to a boolean
+//pppppp
+
     ];
+  
+
+    public function departments()
+{
+    return $this->belongsToMany(Department::class, 'user_dept', 'user_id', 'dept_id');
+}
+
 }
