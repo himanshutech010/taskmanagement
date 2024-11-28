@@ -21,6 +21,11 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+   
+            // Other middleware...
+            \App\Http\Middleware\CheckSession::class,//pppppp
+    
+        
     ];
 
     /**
@@ -37,6 +42,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            // \App\Http\Middleware\UpdateUserOnlineStatus::class,//ppppppp
         ],
 
         'api' => [
