@@ -167,22 +167,32 @@ public function userPassword($id)
     $user = User::findOrfail($id);  
   return view('admin.info.changepassword', compact('user'));
 }
-public function passwordUpdate(ChangePasswordRequest $request, $id)
-    {
-        // dd($id);
-        $validated = $request->validated();
-        $user = User::findOrfail($id);
-        
-        
-        if($request->password){
-            $validated['password'] = Hash::make($request->password);
-        }
 
-        $user->fill($validated);
-        
-        // $user->password = Hash::make($validated['password']);
-        $user->save();
-        return redirect()->route('admin.dashboard.index')->with('success', 'Password Updated successfully');
+//ChangePasswordRequest
+public function passwordUpdate(Request $request, $id)
+{
+ 
+    $validated = $request->validate([
+        'old_password' => ['required'],
+        'password' => ['required', 'min:8', 'confirmed'],
+        'password_confirmation' => ['required']
+    ]);
+
+ 
+    $user = User::findOrFail($id);
+
+  
+    if (!Hash::check($request->old_password, $user->password)) {
+        return back()->withErrors(['old_password' => 'The old password is incorrect.']);
     }
+
+    $user->password = Hash::make($request->password);
+    $user->save();
+
+
+    return redirect()->route('admin.dashboard.index')->with('success', 'Password updated successfully.');
+}
+
+
 
 }

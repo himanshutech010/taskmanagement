@@ -73,8 +73,11 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Email ID</th>
+                                
                                 <th>Phone No.</th>
+                                @if (in_array(auth()->user()->role, ['Super Admin']))
                                 <th>Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -83,6 +86,7 @@
                                     <td>{{ $employee->name }}</td>
                                     <td>{{ $employee->email }}</td>
                                     <td>{{ $employee->phone }}</td>
+                                    @if (in_array(auth()->user()->role, ['Super Admin']))
                                     <td>
                                         <a href="{{ route('admin.employee.edit', $employee->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         {{-- <form action="{{ route('admin.department.remove', $employee->id) }}" method="POST" style="display:inline-block;">
@@ -97,6 +101,7 @@
                                         </form>
                                         
                                     </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

@@ -15,7 +15,7 @@
     <div class="page-header">
         <h3 class="page-title"> Employee Data </h3>
      
-        @if (in_array(auth()->user()->role, ['Super Admin', 'Manager']))
+        @if (in_array(auth()->user()->role, ['Super Admin']))
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -39,7 +39,7 @@
                                 <th>Role</th>
                                 <th>Departments</th>
                                 <th>Status</th>
-                                @if (in_array(auth()->user()->role, ['Super Admin', 'Manager']))                                   
+                                @if (in_array(auth()->user()->role, ['Super Admin']))                                   
                                 <th>Action</th>
                                 @endif
                             </tr>
@@ -62,7 +62,7 @@
                                             {{ $employee->status == 1 ? 'Active' : 'Inactive' }}
                                         </span>
                                     </td>
-                                    @if (in_array(auth()->user()->role, ['Super Admin', 'Manager']))
+                                    @if (in_array(auth()->user()->role, ['Super Admin']))
                                    
                                    
                                     <td>
