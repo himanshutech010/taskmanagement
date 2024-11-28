@@ -16,7 +16,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Employee Form</h4>
+                    <h4 class="card-title mb-4">Employee Form</h4>
                     <form class="forms-sample" method="post" action="{{ route('admin.employee.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-4">

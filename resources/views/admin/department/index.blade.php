@@ -57,7 +57,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.department.create') }}" class="btn btn-block btn-lg btn-gradient-primary">
+                    <a href="{{ route('admin.department.create') }}" class="btn btn-block btn-lg btn-gradient-success">
                         + Add Department
                     </a>
                 </li>
@@ -82,11 +82,11 @@
 
                 @if (in_array(auth()->user()->role, ['Super Admin']))
                 <div class="d-flex justify-content-center gap-3">
-                      <a href="{{ route('admin.department.edit', ['id' => $dept->id]) }}" class="btn btn-info btn-fw">Edit</a>
+                      <a href="{{ route('admin.department.edit', ['id' => $dept->id]) }}"  class="btn btn-inverse-dark btn-icon-text" style="background-color: transparent;"><i class="mdi mdi-account-edit btn-icon-append"></i>Edit</a>
 <form action="{{ route('admin.department.destroy', ['id' => $dept->id]) }}" method="POST" style="display:inline-block;">
     @csrf
     @method('DELETE')
-    <button type="submit" class="btn btn-danger btn-fw " onclick="return confirm('Are you sure you want to delete this department?')">Delete</button>
+    <button type="submit" class="btn btn-inverse-dark" onclick="return confirm('Are you sure you want to delete this department?')" style="background-color: transparent;"><i class="mdi mdi-delete" style="font-size: 20px;"></i></button>
 </form>
 
                 </div>

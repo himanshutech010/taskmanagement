@@ -21,7 +21,7 @@
                  
 
                   <div class="mt-3 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-block btn-gradient-primary text-center btn-lg font-weight-medium auth-form-btn" type="submit">Email Password Reset Link</button>
+                    <button class="btn btn-block btn-gradient-success text-center btn-lg font-weight-medium auth-form-btn" type="submit">Email Password Reset Link</button>
                   </div>
                   
 
@@ -29,7 +29,7 @@
                         
                 </form>
                 <div class="mt-3 d-flex justify-content-center align-items-center">
-                    <a href="{{ route('admin.login') }}" class="btn btn-block btn-lg btn-gradient-primary">Back</a>
+                    <a href="{{ route('admin.login') }}" class="btn btn-block btn-lg btn-outline-success">Back</a>
                   </div>
               </div>
 @endsection

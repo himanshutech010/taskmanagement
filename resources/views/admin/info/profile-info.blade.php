@@ -82,7 +82,7 @@
                                 
                             
                           <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                            <button class="file-upload-browse btn btn-gradient-success" type="button">Upload</button>
                           </span>
                         </div>
                         </div>
@@ -90,10 +90,10 @@
 
                       </div>
                       
-                      <button type="submit" class="btn btn-gradient-primary me-2">Update</button>
+                      <button type="submit" class="btn btn-gradient-success me-2">Update</button>
                      
                 
-                      <a href="{{ route('admin.dashboard.index') }}" class="btn btn-outline-primary me-2">Cancel</a> 
+                      <a href="{{ route('admin.dashboard.index') }}" class="btn btn-outline-success me-2">Cancel</a> 
                 
               
                       

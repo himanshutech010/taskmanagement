@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.department.index') }}" class="btn btn-block btn-lg btn-gradient-primary">Back</a>
+                    <a href="{{ route('admin.department.index') }}" class="btn btn-block btn-lg btn-gradient-success">Back</a>
                 </li>
             </ol>
         </nav>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-gradient-primary mr-2">Save Changes</button>
+                        <button type="submit" class="btn btn-gradient-success mr-2">Save Changes</button>
                         <a href="{{ route('admin.department.index') }}" class="btn btn-light">Cancel</a>
                     </form>
                 </div>

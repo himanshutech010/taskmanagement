@@ -1926,7 +1926,7 @@ a {
   color: #0d6efd;
   text-decoration: underline; }
   a:hover {
-    color: #0a58ca; }
+    color: #3e4b5b; }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
@@ -4307,8 +4307,8 @@ textarea.form-control-lg {
 
 .btn-success {
   color: #000;
-  background-color: #1bcfb4;
-  border-color: #1bcfb4; }
+  background-color: #629a43;
+  border-color: #629a43; }
   .btn-success:hover {
     color: #000;
     background-color: #3dd6bf;
@@ -4532,8 +4532,8 @@ textarea.form-control-lg {
     background-color: transparent; }
 
 .btn-outline-success {
-  color: #1bcfb4;
-  border-color: #1bcfb4; }
+  color: #629a43;
+  border-color: #629a43; }
   .btn-outline-success:hover {
     color: #000;
     background-color: #1bcfb4;
@@ -12373,7 +12373,7 @@ code {
 
 .btn-outline-success:hover, .btn-outline-success:focus, .btn-outline-success:active {
   background: -webkit-gradient(linear, left top, right top, from(#84d9d2), to(#07cdae));
-  background: linear-gradient(to right, #84d9d2, #07cdae);
+  background: linear-gradient(to right, #629a43, #629a43);
   color: #000000; }
 
 .btn-inverse-info {

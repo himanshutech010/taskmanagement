@@ -13,7 +13,7 @@
 
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title"> Employee Data </h3>
+        <h3 class="page-title "> Employee Data </h3>
      
         @if (in_array(auth()->user()->role, ['Super Admin']))
         <nav aria-label="breadcrumb">
@@ -29,7 +29,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Employee Table</h4>
+                    <h4 class="card-title mb-4">Employee Table</h4>
                     <table class="table table-hover">
                         <thead>
                             <tr>
