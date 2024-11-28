@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
             <li class="nav-item nav-profile">
-              <a href="#" class="nav-link">
+              <a href="{{ route('admin.dashboard.index') }}" class="nav-link">
                 <div class="nav-profile-image">
                   {{-- <img src="{{ asset('public/admin/images/profile/default.jpg') }}" alt="profile"> --}}
                   <img src="{{ auth()->user()->image ? asset('public/admin/images/profile/' . auth()->user()->image) : asset('public/admin/images/profile/default.jpg') }}" alt="image" loading="lazy">
