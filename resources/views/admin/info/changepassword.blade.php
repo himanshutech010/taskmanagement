@@ -10,9 +10,10 @@
                   <div class="card-body">
                     <h4 class="card-title">Change Password</h4>
                     <p class="card-description"></p>
-                    <form class="forms-sample"  method="put" action="{{ route('admin.passwordUpdate', ['id' => $user->id]) }}">
+                    <form class="forms-sample"  method="post" action="{{ route('admin.passwordUpdate', ['id' => $user->id]) }}">
                     @csrf
-                    {{-- @method('PUT')  --}}
+                    @method('PUT') 
+                 
                     <div class="form-group col-md-4">
                         <label for="password"  id="password" >Current Password</label>
                         <input type="password" class="form-control"  type="password" name="old_password" placeholder="Enter Current Password">
@@ -35,9 +36,10 @@
                                     <span class="error-message"> {{ $errors->first('password_confirmation') }}</span>
                                 @endif
                       </div>
-
+                      {{-- {{dd($user->id)}} --}}
                       <button type="submit" class="btn btn-gradient-primary me-2">Change</button>
-                      <a href="{{ route('admin.dashboard.index') }}" class="btn btn btn-light">Cancel</a>                    </form>
+                      <a href="{{ route('admin.dashboard.index') }}" class="btn btn btn-light">Cancel</a>                  
+                      </form>
                   </div>
                 </div>
               </div>
