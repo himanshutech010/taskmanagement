@@ -105,7 +105,43 @@
                 <span class="error-message"> {{ $errors->first('password_confirmation') }}</span>
             @endif
   </div>
-            
+                              {{-- <div class="row mb-4">
+                                <!-- Profile Image -->
+                                <div class="form-group col-md-6">
+                                    <label for="image">Profile Picture</label>
+                            
+                                    <!-- Display existing image if available -->
+                                    @if ($user->image)
+                                        <div class="mb-2">
+                                            <img src="{{ asset('storage/' . $user->image) }}" alt="Profile Image" height="50" width="100">
+                                        </div>
+                                    @endif
+                            
+                                    <!-- File input for image upload -->
+                                    <input id="image" type="file" name="image" class="form-control-file">
+                                    
+                                    <!-- Error message for image validation -->
+                                    @if ($errors->has('image'))
+                                        <div class="text-danger">{{ $errors->first('image') }}</div>
+                                    @endif
+                                </div>
+                            </div> --}}
+                            
+                            {{-- <div class="form-group col-md-6">
+                              <label for="images">Image</label>
+                              <input type="file" name="images" class="file-upload-default">
+                              <div class="input-group ml-2">
+                                  <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                  <span class="input-group-append">
+                                      <button class="file-upload-browse btn btn-gradient-success" type="button">Upload</button>
+                                  </span>
+                              </div>
+                              @if($errors->has("image"))
+                                  <span class="error-message">{{ $errors->first('image') }}</span>
+                              @endif
+                          </div> --}}
+
+
                               <div class="row mb-4">
                                   <!-- Profile Image -->
                                   <div class="form-group col-md-6">
@@ -156,6 +192,8 @@
       </div>
                               </div>
     
+                              <!-- Description -->
+                             
           
                              
                           </form>
@@ -164,7 +202,82 @@
               </div>
           </div>
           
-      
+            {{-- <div class="row">
+              <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Edit and Update User Form</h4>
+                    <p class="card-description"> </p>
+                    <form class="forms-sample" method="post" action="{{ route('admin.employee.update', ['id' => $user->id]) }}">
+                    @csrf
+                    @method('PUT')
+                    <div class="row mb-4">
+                      <div class="form-group col-md-4">
+                        <label for="name" :value="__('Name')">Full Name</label>
+                        <input id="name" class="form-control" type="text"  name="name" value="{{ old('name',$user->name) }}" placeholder="John" >
+                        @if($errors->has("name"))
+                            <span class="error-message">{{ $errors->first('name') }}</span>
+                            @endif
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label for="email" :value="__('Email')">Email address</label>
+                        <input id="email" name="email" value="{{ old('email',$user->email) }}" class="form-control" type="email" placeholder="example@email.com">
+                        @if($errors->has("email"))
+                            <span class="error-message">{{ $errors->first('email') }}</span>
+                            @endif
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label for="phone" :value="__('Phone')">Mobile Number</label>
+                        <input id="phone" name="phone"  value="{{ old('phone',$user->phone) }}"  class="form-control" type="tel" placeholder="0123456789">
+                        
+                        @if($errors->has("phone"))
+                            <span class="error-message">{{ $errors->first('phone') }}</span>
+                            @endif
+                      </div>
+
+                      </div>
+
+                      <div class="row mb-4">
+
+                      <div class="form-group col-md-4">
+                        <label id="password" for="password" >Password</label>
+                        <input type="password" class="form-control" type="password" name="password" placeholder="Enter Your Password" >
+                            @if($errors->has("password"))
+                            <span class="error-message">{{ $errors->first('password') }}</span>
+                            @endif
+                      </div>
+                      
+                      <div class="form-group col-md-4">
+                        <label for="password_confirmation" >Confirm Password</label>
+                        <input type="password" name="password_confirmation"  id="password_confirmation" class="form-control" placeholder="Re-enter Your Password" >
+                        @if($errors->has("password_confirmation"))
+                                    <span class="error-message"> {{ $errors->first('password_confirmation') }}</span>
+                                @endif
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        
+                        <label for="status">Status</label>
+                        <select class="form-control form-control-sm" id="status" name="status">
+                        <option value="1" {{$user->status == 1 ? 'selected' : ''}}>Active</option>
+                        <option value="0" {{$user->status == 0 ? 'selected' : ''}}>Inactive</option>
+                       </select>
+                      </div>
+
+                     
+
+                  </div>
+                      
+                      <button type="submit" class="btn btn-gradient-success me-2">Submit</button>
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+            </div> --}}
           </div>
 
 @endsection

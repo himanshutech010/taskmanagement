@@ -17,7 +17,7 @@
     <div class="page-header">
         <h3 class="page-title">{{ $department->name }}</h3>
 
-        @if (in_array(auth()->user()->role, ['Super Admin']))
+        @if (in_array(auth()->user()->role, ['Super Admin', 'Manager']))
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -56,7 +56,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-success">Assign</button>
-
                     </div>
                 </form>
             </div>
