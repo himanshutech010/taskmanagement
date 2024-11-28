@@ -42,7 +42,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href=""> 
+              <a class="nav-link" href="{{ route('admin.clients.index') }}"> 
                 <span class="menu-title">Client</span>
                 <i class="mdi mdi-human-greeting menu-icon"></i>
               </a>

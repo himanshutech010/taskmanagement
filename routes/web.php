@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.store');
         Route::get('/employee/edit/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
         Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
-        Route::get('/employee/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+        Route::delete('/employee/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+
+
+
+          // Client management routes 
+          Route::get('/client', [ClientController::class, 'index'])->name('clients.index');
+          Route::get('/client/create', [ClientController::class, 'create'])->name('clients.create');
+          Route::post('/client', [ClientController::class, 'store'])->name('clients.store');
+          Route::get('/client/edit/{id}', [ClientController::class, 'edit'])->name('clients.edit');
+          Route::put('/client/{id}', [ClientController::class, 'update'])->name('clients.update');
+          Route::delete('/client/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
 
 
 //Department management routes

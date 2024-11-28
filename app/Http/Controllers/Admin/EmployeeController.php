@@ -40,8 +40,8 @@ class EmployeeController extends Controller
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
       'user_name' => ['required', 'string', 'max:255', 'unique:users,user_name'], // Matches the DB column name
         'password' => ['required', 'confirmed'], // Password must match password_confirmation
-        'phone' => ['nullable', 'string', 'max:10', 'min:10'],
-        'date_of_birth' => ['nullable', 'date'], // Matches the DB column name
+        'phone' => ['nullable', 'numeric',  'digits_between:10,10'],
+        'date_of_birth' => ['nullable', 'date'], 
         'gender' => ['required', 'in:male,female,other'],
         'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         'role' => ['required', 'in:staff,admin,manager'],
@@ -97,7 +97,7 @@ class EmployeeController extends Controller
             'email' => ['required', 'string', 'email', 'max:255',ValidationRule::unique('users')->ignore($user->id)],
           'user_name' => ['required', 'string', 'max:255', ValidationRule::unique('users')->ignore($user->id)], // Matches the DB column name
           'password' => ['nullable', 'confirmed'],// Password must match password_confirmation
-            'phone' => ['nullable', 'string', 'max:10', 'min:10'],
+            'phone' => ['nullable', 'numeric', 'digits_between:10,10'],
             'date_of_birth' => ['nullable', 'date'], // Matches the DB column name
             'gender' => ['required', 'in:male,female,other'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],

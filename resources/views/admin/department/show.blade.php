@@ -17,11 +17,11 @@
     <div class="page-header">
         <h3 class="page-title">{{ $department->name }}</h3>
 
-        @if (in_array(auth()->user()->role, ['Super Admin', 'Manager']))
+        @if (in_array(auth()->user()->role, ['Super Admin']))
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <button class="btn btn-block btn-lg btn-gradient-primary" data-toggle="modal" data-target="#assignEmployeeModal">
+                        <button class="btn btn-block btn-lg btn-gradient-success" data-toggle="modal" data-target="#assignEmployeeModal">
                             + Assign an Employee
                         </button>
                     </li>
@@ -54,8 +54,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Assign</button>
+                        <button type="button" class="btn btn-gradient-success" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-gradient-success">Assign</button>
                     </div>
                 </form>
             </div>
