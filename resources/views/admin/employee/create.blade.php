@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.employee.index') }}" class="btn btn-block btn-lg btn-gradient-primary">Back</a>
+                    <a href="{{ route('admin.employee.index') }}" class="btn btn-block btn-lg btn-gradient-success">Back</a>
                 </li>
             </ol>
         </nav>
@@ -112,7 +112,7 @@
                                     <div class="input-group  ml-2 ">
                                         <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                                         <span class="input-group-append">
-                                            <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                                            <button class="file-upload-browse btn btn-gradient-success" type="button">Upload</button>
                                         </span>
                                     </div>
                             </div>
@@ -143,7 +143,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                        <button type="submit" class="btn btn-gradient-success me-2">Submit</button>
                     </form>
                 </div>
             </div>

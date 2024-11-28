@@ -19,7 +19,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.employee.create') }}" class="btn btn-block btn-lg btn-gradient-primary">+ Add Employee</a>
+                    <a href="{{ route('admin.employee.create') }}" class="btn btn-block btn-lg btn-gradient-success">+ Add Employee</a>
                 </li>
             </ol>
         </nav>
@@ -53,7 +53,7 @@
                                     <td>{{ $employee->role}}</td>
                                     <td>
                                         <!-- View Departments Modal Trigger -->
-                                        <button class="btn btn-sm btn-gradient-primary" data-toggle="modal" data-target="#viewDepartmentsModal{{ $employee->id }}">
+                                        <button class="btn btn-sm btn-gradient-success" data-toggle="modal" data-target="#viewDepartmentsModal{{ $employee->id }}">
                                             View Dept.
                                         </button>
                                     </td>
