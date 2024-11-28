@@ -18,7 +18,7 @@
               <div class="col-md-12 grid-margin stretch-card">
                   <div class="card">
                       <div class="card-body">
-                          <h4 class="card-title">Edit Employee Form</h4>
+                          <h4 class="card-title mb-4">Edit Employee Form</h4>
                           {{-- {{dd($user)}} --}}
                           <form class="forms-sample" method="post" action="{{ route('admin.employee.update', $user->id) }}" enctype="multipart/form-data">
                               @csrf

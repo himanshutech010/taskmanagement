@@ -37,8 +37,8 @@
                                 @endif
                       </div>
                       {{-- {{dd($user->id)}} --}}
-                      <button type="submit" class="btn btn-gradient-primary me-2">Change</button>
-                      <a href="{{ route('admin.dashboard.index') }}" class="btn btn btn-light">Cancel</a>                  
+                      <button type="submit" class="btn btn-gradient-success me-2">Change</button>
+                      <a href="{{ route('admin.dashboard.index') }}" class="btn btn-outline-success me-2">Cancel</a>                  
                       </form>
                   </div>
                 </div>

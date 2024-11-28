@@ -21,7 +21,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <button class="btn btn-block btn-lg btn-gradient-primary" data-toggle="modal" data-target="#assignEmployeeModal">
+                        <button class="btn btn-block btn-lg btn-gradient-success" data-toggle="modal" data-target="#assignEmployeeModal">
                             + Assign an Employee
                         </button>
                     </li>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Assign</button>
+                        <button type="submit" class="btn btn-success">Assign</button>
                     </div>
                 </form>
             </div>
@@ -88,7 +88,7 @@
                                     <td>{{ $employee->phone }}</td>
                                     @if (in_array(auth()->user()->role, ['Super Admin']))
                                     <td>
-                                        <a href="{{ route('admin.employee.edit', $employee->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="{{ route('admin.employee.edit', $employee->id) }}"  class="btn btn-inverse-dark"><i class="mdi mdi-account-edit btn-icon-append" ></i>Edit</a>
                                         {{-- <form action="{{ route('admin.department.remove', $employee->id) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
@@ -97,7 +97,7 @@
                                         <form action="{{ route('admin.department.remove', ['departmentId' => $department->id, 'userId' => $employee->id]) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to remove this employee?')">Remove</button>
+                                            <button type="submit" class="btn btn-inverse-dark  btn-icon btn-sm" onclick="return confirm('Are you sure you want to remove this employee?')"><i class="mdi mdi-delete" style="font-size: 20px;"></i></button>
                                         </form>
                                         
                                     </td>

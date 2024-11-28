@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="mt-3 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-block btn-gradient-primary text-center btn-lg font-weight-medium auth-form-btn" type="submit">SIGN IN</button>
+                    <button class="btn btn-block btn-gradient-success text-center btn-lg font-weight-medium auth-form-btn" type="submit">SIGN IN</button>
                   </div>
                     
 
