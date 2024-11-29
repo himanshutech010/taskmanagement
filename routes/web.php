@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ use App\Http\Controllers\Admin\ClientController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return redirect('/admin/login'); // Redirect root to admin login
 });
@@ -49,30 +51,31 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 
-          // Client management routes 
-          Route::get('/client', [ClientController::class, 'index'])->name('clients.index');
-          Route::get('/client/create', [ClientController::class, 'create'])->name('clients.create');
-          Route::post('/client', [ClientController::class, 'store'])->name('clients.store');
-          Route::get('/client/edit/{id}', [ClientController::class, 'edit'])->name('clients.edit');
-          Route::put('/client/{id}', [ClientController::class, 'update'])->name('clients.update');
-          Route::delete('/client/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
+        // Client management routes 
+        Route::get('/client', [ClientController::class, 'index'])->name('clients.index');
+        Route::get('/client/create', [ClientController::class, 'create'])->name('clients.create');
+        Route::post('/client', [ClientController::class, 'store'])->name('clients.store');
+        Route::get('/client/edit/{id}', [ClientController::class, 'edit'])->name('clients.edit');
+        Route::put('/client/{id}', [ClientController::class, 'update'])->name('clients.update');
+        Route::delete('/client/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
 
 
-//Department management routes
- Route::get('/department', [DepartmentController::class, 'index'])->name('department.index');
- Route::get('/department/create', [DepartmentController::class, 'create'])->name('department.create');
- Route::post('/department', [DepartmentController::class, 'store'])->name('department.store');
- Route::get('/department/info/{id}', [DepartmentController::class, 'show'])->name('department.show');
- Route::post('/admin/department/assign/{id}', [DepartmentController::class, 'assignUser'])->name('department.assign');
- Route::delete('/admin/department/remove/{userId}/{departmentId}', [DepartmentController::class, 'detachUser'])->name('department.remove');
- Route::get('/department/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
- Route::put('/department/{id}', [DepartmentController::class, 'update'])->name('department.update');
+        //Department management routes
+        Route::get('/department', [DepartmentController::class, 'index'])->name('department.index');
+        Route::get('/department/create', [DepartmentController::class, 'create'])->name('department.create');
+        Route::post('/department', [DepartmentController::class, 'store'])->name('department.store');
+        Route::get('/department/info/{id}', [DepartmentController::class, 'show'])->name('department.show');
+        Route::post('/admin/department/assign/{id}', [DepartmentController::class, 'assignUser'])->name('department.assign');
+        Route::delete('/admin/department/remove/{userId}/{departmentId}', [DepartmentController::class, 'detachUser'])->name('department.remove');
+        Route::get('/department/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
+        Route::put('/department/{id}', [DepartmentController::class, 'update'])->name('department.update');
 
-//  Route::get('/department/detete/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
- Route::delete('/department/delete/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
-
-
-
+        //  Route::get('/department/detete/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
+        Route::delete('/department/delete/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
+    
+        Route::get('/project', [ProjectController::class, 'index'])->name('projects.index');
+        Route::get('/project/create', [ProjectController::class, 'create'])->name('projects.create');
+        Route::post('/project', [ProjectController::class, 'store'])->name('projects.store');
 
     });
 });
@@ -91,4 +94,4 @@ Route::fallback(function () {
     return redirect()->route('admin.login');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

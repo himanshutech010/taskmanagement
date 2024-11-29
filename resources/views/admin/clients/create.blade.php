@@ -83,7 +83,7 @@
                             <!-- Location -->
                             <div class="form-group col-md-6">
                                 <label for="location">Location</label>
-                                <textarea id="location" class="form-control" name="location" rows="3" placeholder="Enter Location">{{ old('location') }}</textarea>
+                                <input id="location" class="form-control" name="location" rows="3" placeholder="Enter Location">{{ old('location') }}</input>
                                 @if($errors->has('location'))
                                     <span class="error-message">{{ $errors->first('location') }}</span>
                                 @endif

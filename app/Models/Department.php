@@ -23,9 +23,14 @@ class Department extends Model
     }
 
     public function users()
-{
+    {
     return $this->belongsToMany(User::class, 'user_dept', 'dept_id', 'user_id');
-}
+    }
+
+    public function projectAssignments()
+    {
+        return $this->hasMany(ProjectAssign::class, 'dept_id');
+    }
 
 }
 

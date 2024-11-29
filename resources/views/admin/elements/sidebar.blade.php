@@ -3,7 +3,6 @@
             <li class="nav-item nav-profile">
               <a href="{{ route('admin.dashboard.index') }}" class="nav-link">
                 <div class="nav-profile-image">
-                  {{-- <img src="{{ asset('public/admin/images/profile/default.jpg') }}" alt="profile"> --}}
                   <img src="{{ auth()->user()->image ? asset('public/admin/images/profile/' . auth()->user()->image) : asset('public/admin/images/profile/default.jpg') }}" alt="image" loading="lazy">
                   <span class="login-status online"></span>
                   <!--change to offline or busy as needed-->
@@ -27,10 +26,6 @@
                 <span class="menu-title">Employee</span>
                 <i class="mdi mdi-contacts menu-icon"></i>
               </a>
-              {{-- <a class="nav-link" href="{{ route('admin.employee.index', ['user' => auth()->user()->id]) }}">
-                <span class="menu-title">Employee</span>
-                <i class="mdi mdi-contacts menu-icon"></i>
-            </a> --}}
             
             </li>
 
@@ -41,24 +36,18 @@
               </a>
             </li>
 
-            {{-- <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.clients.index') }}"> 
-                <span class="menu-title">Client</span>
-                <i class="mdi mdi-human-greeting menu-icon"></i>
-              </a>
-            </li> --}}
             @if (in_array(auth()->user()->role, ['Manager', 'Super Admin']))
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.clients.index') }}"> 
-            <span class="menu-title">Client</span>
-            <i class="mdi mdi-human-greeting menu-icon"></i>
-        </a>
-    </li>
-@endif
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('admin.clients.index') }}"> 
+                      <span class="menu-title">Client</span>
+                      <i class="mdi mdi-human-greeting menu-icon"></i>
+                  </a>
+              </li>
+            @endif
 
             
             <li class="nav-item">
-              <a class="nav-link" href=""> 
+              <a class="nav-link" href="{{ route('admin.projects.index') }}"> 
                 <span class="menu-title">Project</span>
                 <i class="mdi mdi-medical-bag menu-icon"></i>
               </a>
