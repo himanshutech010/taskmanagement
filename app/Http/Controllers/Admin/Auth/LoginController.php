@@ -36,7 +36,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         // Check if the email exists
-        $user = User::where('email', $credentials['email']->where('isdeleted', 0))->first();
+        $user = User::where('email', $credentials['email'])->where('isdeleted', 0)->first();
         if (!$user) {
             // Email does not exist
             return redirect()->back()->withErrors(['email' => 'The provided email does not match our records.']);
