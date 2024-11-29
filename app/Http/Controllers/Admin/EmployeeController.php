@@ -76,7 +76,9 @@ class EmployeeController extends Controller
     // Create the employee
 
     $user = User::create($validated);
-
+// $user->staff_id='EMP-'.$user->id;
+// dd($user->staff_id);
+$user->save();
 
     return redirect()->route('admin.employee.index')->with('success', 'Employee created successfully.');
 }
@@ -107,7 +109,7 @@ class EmployeeController extends Controller
             // 'gender' => ['required', 'in:male,female,other'],
             'role' => ['required', 'in:Super Admin,Manager,Staff'],
             'gender' => ['required', 'in:Male,Female,Other'],
-            'date_of_birth' => ['nullable', 'date'], // Validate date
+            'date_of_birth' => ['nullable', 'date'], 
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             // 'role' => ['required', 'in:staff,admin,manager'],
             'description' => ['nullable', 'string', 'max:500'],

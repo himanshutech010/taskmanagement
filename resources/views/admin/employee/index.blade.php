@@ -33,6 +33,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th>Emp ID</th>
                                 <th>Name</th>
                                 <th>Email id</th>
                                 <th>Phone No.</th>
@@ -47,6 +48,7 @@
                         <tbody>
                             @foreach($records as $employee)
                                 <tr>
+                                    <td>{{ $employee->staff_id }}</td>
                                     <td>{{ $employee->name }}</td>
                                     <td>{{ $employee->email }}</td>
                                     <td>{{ $employee->phone }}</td>

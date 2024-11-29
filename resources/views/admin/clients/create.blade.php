@@ -89,17 +89,7 @@
                                 @endif
                             </div>
 
-                            <!-- Is Test -->
-                            <div class="form-group col-md-6">
-                                <label for="is_test">Is Test</label>
-                                <select id="is_test" name="is_test" class="form-control form-control-sm">
-                                    <option value="0" {{ old('is_test') == '0' ? 'selected' : '' }}>No</option>
-                                    <option value="1" {{ old('is_test') == '1' ? 'selected' : '' }}>Yes</option>
-                                </select>
-                                @if($errors->has('is_test'))
-                                    <span class="error-message">{{ $errors->first('is_test') }}</span>
-                                @endif
-                            </div>
+                       
                         </div>
 
                         <button type="submit" class="btn btn-gradient-success me-2">Submit</button>

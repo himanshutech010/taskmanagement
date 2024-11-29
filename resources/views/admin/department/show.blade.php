@@ -75,6 +75,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th>Emp ID</th>
                                 <th>Name</th>
                                 <th>Email ID</th>
                                 
@@ -87,7 +88,7 @@
                         <tbody>
                             @foreach($department->users as $employee)
                                 <tr>            
-                                
+                                <td>{{$employee->staff_id}}</td>
                                     <td>{{ $employee->name }}</td>
                                     <td>{{ $employee->email }}</td>
                                     <td>{{ $employee->phone }}</td>

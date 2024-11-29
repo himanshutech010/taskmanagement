@@ -38,7 +38,7 @@ class ClientController extends Controller
             'skype' => 'nullable|string|max:255',
             'other' => 'nullable|string|max:255',
             'location' => 'nullable|string',
-            'is_test' => 'boolean',
+           
         ]);
 
         Client::create($validated);
@@ -74,7 +74,7 @@ public function update(Request $request, $id)
         'skype' => 'nullable|string|max:255',
         'other' => 'nullable|string|max:255',
         'location' => 'nullable|string',
-        'is_test' => 'required|boolean',
+        
     ]);
 
     $client = Client::findOrFail($id);
