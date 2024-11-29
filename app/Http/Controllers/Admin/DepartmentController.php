@@ -49,15 +49,34 @@ class DepartmentController extends Controller
  
 
 
-    public function show($id)
-{
-    $department = Department::with('users')->findOrFail($id);
+//     public function show($id)
+// {
+//     $department = Department::with('users')->findOrFail($id);
 
-    // Fetch users not assigned to this department
-    $unassignedUsers = User::whereNotIn('id', $department->users->pluck('id'))->get();
+// $department =$department->users->where('isdeleted', 0);
+   
+//     $unassignedUsers = User::where('isdeleted', 0)->whereNotIn('id', $department->users->pluck('id'))->get();
+
+//     return view('admin.department.show', compact('department', 'unassignedUsers'));
+// }
+public function show($id)
+{
+   
+    $department = Department::with(['users' => function ($query) {
+        $query->where('isdeleted', 0)->where('status',1); 
+    }])->findOrFail($id);
+
+  
+    $assignedUserIds = $department->users->pluck('id');
+
+  
+    $unassignedUsers = User::where('isdeleted', 0)->where('status',1)
+                            ->whereNotIn('id', $assignedUserIds)
+                            ->get();
 
     return view('admin.department.show', compact('department', 'unassignedUsers'));
 }
+
 
 
 
@@ -79,9 +98,9 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate incoming request data
+  
         $request->validate([
-            'name' => 'required|string|max:255', // Ensure name is provided and valid
+            'name' => 'required|string|max:255', 
         ]);
     
     

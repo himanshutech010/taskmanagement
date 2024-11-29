@@ -29,6 +29,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/reset', [LoginController::class, 'resetpassword'])->name('resetpassword');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+    //profile
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/profile/{id}', [LoginController::class, 'profile'])->name('profile');

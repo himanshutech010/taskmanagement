@@ -93,10 +93,10 @@
                             <div class="form-group col-md-6">
                                 <label for="gender">Gender<span class="text-danger">*</span></label>
                                 <select id="gender" name="gender" class="form-control form-control-sm">
-                                    <option value="" disabled selected>Choose...</option>
-                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
-                                    <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                                    <option value="" disabled>Choose...</option>
+                                    <option value="Male" {{ old('gender', $user->gender) == 'Male' ? 'selected' : '' }}>Male</option>
+                                    <option value="Female" {{ old('gender', $user->gender) == 'Female' ? 'selected' : '' }}>Female</option>
+                                    <option value="Other" {{ old('gender', $user->gender) == 'Other' ? 'selected' : '' }}>Other</option>
                                 </select>
                                 @if($errors->has("gender"))
                                 <span class="error-message">{{ $errors->first('gender') }}</span>
@@ -122,9 +122,9 @@
                             <div class="form-group col-md-6">
                                 <label for="role">Role<span class="text-danger">*</span></label>
                                 <select id="role" name="role" class="form-control form-control-sm" >
-                                    <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff</option>
-                                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="manager" {{ old('role') == 'manager' ? 'selected' : '' }}>Manager</option>
+                                    <option value="Staff" {{ old('role', $user->role) == 'Staff' ? 'selected' : '' }}>Staff</option>
+                                    <option value="Super Admin" {{ old('role', $user->role) == 'Super Admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="Manager" {{ old('role', $user->role) == 'Manager' ? 'selected' : '' }}>Manager</option>
                                 </select>
                                 @if($errors->has("role"))
                                 <span class="error-message">{{ $errors->first('role') }}</span>

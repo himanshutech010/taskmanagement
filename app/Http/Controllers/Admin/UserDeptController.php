@@ -8,21 +8,21 @@
 // {
 //     //
 // }
-namespace App\Http\Controllers;
+// namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Department;
+// use Illuminate\Http\Request;
+// use App\Models\User;
+// use App\Models\Department;
 
-class UserDeptController extends Controller
-{
-    // Show the relationship data
-    public function show($id)
-    {
-        $department = Department::findOrFail($id);
-        $users = User::all();  
-        return view('departments.show', compact('department', 'users'));
-    }
+// class UserDeptController extends Controller
+// {
+//     // Show the relationship data
+//     public function show($id)
+//     {
+//         $department = Department::findOrFail($id);
+//         $users = User::where('isdeleted', 0)->all();  
+//         return view('departments.show', compact('department', 'users'));
+//     }
 
     // Assign departments to a user
     // public function assign(Request $request, $userId)
@@ -44,27 +44,27 @@ class UserDeptController extends Controller
     //     return redirect()->back()->with('success', 'Department detached successfully.');
     // }
 
-    public function assignUser(Request $request, $id)
-    {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-        ]);
+//     public function assignUser(Request $request, $id)
+//     {
+//         $request->validate([
+//             'user_id' => 'required|exists:users,id',
+//         ]);
 
-        $department = Department::findOrFail($id);
-        $department->users()->attach($request->user_id);
+//         $department = Department::findOrFail($id);
+//         $department->users()->attach($request->user_id);
 
-        return redirect()->route('departments.show', $id)->with('success', 'User assigned successfully!');
-    }
+//         return redirect()->route('departments.show', $id)->with('success', 'User assigned successfully!');
+//     }
 
-    // Optionally, you can also remove the user from the department
-    public function removeUser(Request $request, $deptId, $userId)
-    {
-        $department = Department::findOrFail($deptId);
-        $department->users()->detach($userId);
+//     // Optionally, you can also remove the user from the department
+//     public function removeUser(Request $request, $deptId, $userId)
+//     {
+//         $department = Department::findOrFail($deptId);
+//         $department->users()->detach($userId);
 
-        return redirect()->route('departments.show', $deptId)->with('success', 'User removed successfully!');
-    }
-}
+//         return redirect()->route('departments.show', $deptId)->with('success', 'User removed successfully!');
+//     }
+// }
 
 
 

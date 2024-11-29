@@ -48,7 +48,10 @@
                             <select name="user_id" id="user_id" class="form-control" required>
                                 <option value="" disabled selected>Select a user</option>
                                 @foreach($unassignedUsers as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
+                                @if ($user->role!='Super Admin')
+                                <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>   
+                                @endif
+                                  
                                 @endforeach
                             </select>
                         </div>
@@ -83,7 +86,8 @@
                         </thead>
                         <tbody>
                             @foreach($department->users as $employee)
-                                <tr>
+                                <tr>            
+                                
                                     <td>{{ $employee->name }}</td>
                                     <td>{{ $employee->email }}</td>
                                     <td>{{ $employee->phone }}</td>

@@ -13,23 +13,15 @@ use Illuminate\Support\Facades\Storage;
 class EmployeeController extends Controller
 {
  
-    // public function index()
-    // {
-    //     // List all employees
-    //     $records=User::orderBy('id',"desc")->get();
-    //    return view('admin.employee.index',compact('records'));
-     
-    // }
     public function index()
     {
-        $records = User::where('isdeleted', 0) 
-                       ->orderBy('id', 'desc')
-                       ->get();
-    
-        return view('admin.employee.index', compact('records'));
-    }
-    
+      
 
+        // List all employees
+        $records=User::where('isdeleted', 0)->orderBy('id',"desc")->get();
+       return view('admin.employee.index',compact('records'));
+     
+    }
 
     public function create()
     {
@@ -46,17 +38,18 @@ class EmployeeController extends Controller
         'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
         // 'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'email:rfc,dns', 'max:255', 'unique:users,email'],
-      'user_name' => ['required', 'string', 'max:255', 'unique:users,user_name'], // Matches the DB column name
+      'user_name' => ['required', 'string', 'max:255', 'unique:users,user_name'], 
   
-        'password' => ['required', 'confirmed'], // Password must match password_confirmation
+        'password' => ['required', 'confirmed'], 
         
-
         
         'phone' => ['nullable', 'numeric',  'digits_between:10,10'],
+       'role' => ['required', 'in:Super Admin,Manager,Staff'],
+        'gender' => ['required', 'in:Male,Female,Other'],
         'date_of_birth' => ['nullable', 'date'], 
-        'gender' => ['required', 'in:male,female,other'],
+        
         'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-        'role' => ['required', 'in:staff,admin,manager'],
+        // 'role' => ['required', 'in:staff,admin,manager'],
         'description' => ['nullable', 'string', 'max:500'],
     ]);
 
@@ -77,7 +70,7 @@ class EmployeeController extends Controller
     // Encrypt the password
     $validated['password'] = Hash::make($validated['password']);
 
-    // Set default status to active
+   
     $validated['status'] = 1;
 
     // Create the employee
@@ -93,7 +86,7 @@ class EmployeeController extends Controller
     public function edit($id)
     { 
 
-        $user = User::where('isdeleted', 0)->findOrfail($id);
+        $user = User::findOrfail($id);
        // dd($user);
         return view('admin.employee.edit',compact('user'));
     }
@@ -106,18 +99,21 @@ class EmployeeController extends Controller
         $validated = $request->validate([
            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             // 'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email:rfc,dns', 'max:255',ValidationRule::unique('users')->ignore($user->id)],
-          'user_name' => ['required', 'string', 'max:255', ValidationRule::unique('users')->ignore($user->id)], // Matches the DB column name
-          'password' => ['nullable', 'confirmed'],// Password must match password_confirmation
-            'phone' => ['nullable', 'numeric', 'digits_between:10,10'],
-            'date_of_birth' => ['nullable', 'date'], // Matches the DB column name
-            'gender' => ['required', 'in:male,female,other'],
+            'email' => ['required', 'string', 'email', 'max:255',ValidationRule::unique('users')->ignore($user->id)],
+          'user_name' => ['required', 'string', 'max:255', ValidationRule::unique('users')->ignore($user->id)], 
+          'password' => ['nullable', 'confirmed'],
+            'phone' => ['nullable', 'string', 'max:10', 'min:10'],
+            // 'date_of_birth' => ['nullable', 'date'], 
+            // 'gender' => ['required', 'in:male,female,other'],
+            'role' => ['required', 'in:Super Admin,Manager,Staff'],
+            'gender' => ['required', 'in:Male,Female,Other'],
+            'date_of_birth' => ['nullable', 'date'], // Validate date
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'role' => ['required', 'in:staff,admin,manager'],
+            // 'role' => ['required', 'in:staff,admin,manager'],
             'description' => ['nullable', 'string', 'max:500'],
             'status' => ['required', 'string', 'in:1,0'], 
         ]);
-        
+       
         if($request->hasFile('image')) {
             $file = $request->file('image');
             $image_name = time().'.'.$request->file('image')->getClientOriginalExtension();
@@ -141,27 +137,20 @@ class EmployeeController extends Controller
             unset($validated['password']);
         }
 
-        $user->where('isdeleted', 0)->fill($validated);
+        $user->fill($validated);
         
         // $user->password = Hash::make($validated['password']);
         $user->save();
         return redirect()->route('admin.employee.index')->with('success', 'User Updated successfully');
     }
 
-
-//     public function destroy($id)
-//     {
-//         $user = User::findOrfail($id);
-// //dd($user);
-//         $user->delete();
-//         return redirect()->route('admin.employee.index')->with('success', 'User deleted successfully');
-//     }
+ 
 
 public function destroy($id)
 {
     $user = User::findOrFail($id);
     $user->isdeleted = 1; 
-    $user->save(); 
+    $user->save();
 
     return redirect()->route('admin.employee.index')->with('success', 'User deleted successfully');
 }

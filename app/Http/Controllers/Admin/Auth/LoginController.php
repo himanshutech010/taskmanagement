@@ -125,7 +125,7 @@ class LoginController extends Controller
 
     public function profile($id)
     {
-        $user = User::findOrfail($id)->where('isdeleted', 0);
+        $user = User::findOrfail($id);
         return view('admin.info.profile-info', compact('user'));
     }
 
@@ -133,7 +133,7 @@ class LoginController extends Controller
     public function profileUpdate(Request $request, $id)
     {
 
-        $user = User::findOrfail($id)->where('isdeleted', 0);
+        $user = User::findOrfail($id);
 
 
         $validated = $request->validate([
@@ -142,7 +142,8 @@ class LoginController extends Controller
             'user_name' => ['required', 'string', 'max:255', Rule::unique('users', 'user_name')->ignore($user->id)],
             'phone' => ['nullable', 'numeric', 'digits:10'],
             'date_of_birth' => ['nullable', 'date'],
-            'gender' => ['required', 'in:male,female,other'],
+            // 'gender' => ['required', 'in:male,female,other'],
+            'gender' => ['required', 'in:Male,Female,Other'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'description' => ['nullable', 'string', 'max:500'],
         ]);

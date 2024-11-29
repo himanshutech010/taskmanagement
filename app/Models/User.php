@@ -30,6 +30,7 @@ class User extends Authenticatable
         'description',
         'status',
         'is_online',
+        'isdeleted',
     ];
 
     /**
@@ -50,6 +51,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'is_online' => 'boolean',// Cast the is_online attribute to a boolean
+        'isdeleted'=>'boolean',
 //pppppp
 
     ];
