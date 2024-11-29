@@ -41,13 +41,22 @@
               </a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a class="nav-link" href="{{ route('admin.clients.index') }}"> 
                 <span class="menu-title">Client</span>
                 <i class="mdi mdi-human-greeting menu-icon"></i>
               </a>
-            </li>
+            </li> --}}
+            @if (in_array(auth()->user()->role, ['Manager', 'Super Admin']))
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.clients.index') }}"> 
+            <span class="menu-title">Client</span>
+            <i class="mdi mdi-human-greeting menu-icon"></i>
+        </a>
+    </li>
+@endif
 
+            
             <li class="nav-item">
               <a class="nav-link" href=""> 
                 <span class="menu-title">Project</span>

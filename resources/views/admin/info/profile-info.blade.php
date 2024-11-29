@@ -59,11 +59,11 @@
                                                         <div class="form-group col-md-6">
                                                             <label for="gender">Gender<span class="text-danger">*</span></label>
                                                             <select id="gender" name="gender" class="form-control form-control-sm">
-                                                                <option value="" disabled>Choose...</option>
-                                                                <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>Male</option>
-                                                                <option value="female" {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>Female</option>
-                                                                <option value="other" {{ old('gender', $user->gender) == 'other' ? 'selected' : '' }}>Other</option>
-                                                            </select>
+                                                              <option value="" disabled {{ old('gender', $user->gender) === null ? 'selected' : '' }}>Choose...</option>
+                                                              <option value="male" {{ old('gender', $user->gender) == 'Male' ? 'selected' : '' }}>Male</option>
+                                                              <option value="female" {{ old('gender', $user->gender) == 'Female' ? 'selected' : '' }}>Female</option>
+                                                              <option value="other" {{ old('gender', $user->gender) == 'Other' ? 'selected' : '' }}>Other</option>
+                                                          </select>
                                                             @if($errors->has("gender"))
                                                             <span class="error-message">{{ $errors->first('gender') }}</span>
                                                             @endif

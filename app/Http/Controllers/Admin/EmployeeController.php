@@ -13,15 +13,23 @@ use Illuminate\Support\Facades\Storage;
 class EmployeeController extends Controller
 {
  
+    // public function index()
+    // {
+    //     // List all employees
+    //     $records=User::orderBy('id',"desc")->get();
+    //    return view('admin.employee.index',compact('records'));
+     
+    // }
     public function index()
     {
-      
-
-        // List all employees
-        $records=User::orderBy('id',"desc")->get();
-       return view('admin.employee.index',compact('records'));
-     
+        $records = User::where('isdeleted', 0) 
+                       ->orderBy('id', 'desc')
+                       ->get();
+    
+        return view('admin.employee.index', compact('records'));
     }
+    
+
 
     public function create()
     {
@@ -37,9 +45,13 @@ class EmployeeController extends Controller
     $validated = $request->validate([
         'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
         // 'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+        'email' => ['required', 'email:rfc,dns', 'max:255', 'unique:users,email'],
       'user_name' => ['required', 'string', 'max:255', 'unique:users,user_name'], // Matches the DB column name
+  
         'password' => ['required', 'confirmed'], // Password must match password_confirmation
+        
+
+        
         'phone' => ['nullable', 'numeric',  'digits_between:10,10'],
         'date_of_birth' => ['nullable', 'date'], 
         'gender' => ['required', 'in:male,female,other'],
@@ -81,7 +93,7 @@ class EmployeeController extends Controller
     public function edit($id)
     { 
 
-        $user = User::findOrfail($id);
+        $user = User::where('isdeleted', 0)->findOrfail($id);
        // dd($user);
         return view('admin.employee.edit',compact('user'));
     }
@@ -94,7 +106,7 @@ class EmployeeController extends Controller
         $validated = $request->validate([
            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             // 'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255',ValidationRule::unique('users')->ignore($user->id)],
+            'email' => ['required', 'email:rfc,dns', 'max:255',ValidationRule::unique('users')->ignore($user->id)],
           'user_name' => ['required', 'string', 'max:255', ValidationRule::unique('users')->ignore($user->id)], // Matches the DB column name
           'password' => ['nullable', 'confirmed'],// Password must match password_confirmation
             'phone' => ['nullable', 'numeric', 'digits_between:10,10'],
@@ -129,7 +141,7 @@ class EmployeeController extends Controller
             unset($validated['password']);
         }
 
-        $user->fill($validated);
+        $user->where('isdeleted', 0)->fill($validated);
         
         // $user->password = Hash::make($validated['password']);
         $user->save();
@@ -137,13 +149,22 @@ class EmployeeController extends Controller
     }
 
 
-    public function destroy($id)
-    {
-        $user = User::findOrfail($id);
-//dd($user);
-        $user->delete();
-        return redirect()->route('admin.employee.index')->with('success', 'User deleted successfully');
-    }
+//     public function destroy($id)
+//     {
+//         $user = User::findOrfail($id);
+// //dd($user);
+//         $user->delete();
+//         return redirect()->route('admin.employee.index')->with('success', 'User deleted successfully');
+//     }
+
+public function destroy($id)
+{
+    $user = User::findOrFail($id);
+    $user->isdeleted = 1; 
+    $user->save(); 
+
+    return redirect()->route('admin.employee.index')->with('success', 'User deleted successfully');
+}
 
 
 }

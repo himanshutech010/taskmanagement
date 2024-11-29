@@ -6,7 +6,7 @@
     <div class="page-header">
         <h3 class="page-title"> Client Data </h3>
 
-        @if (in_array(auth()->user()->role, ['Super Admin']))
+        @if (in_array(auth()->user()->role, ['Super Admin','Manager']))
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -30,9 +30,9 @@
                                 <th>Linked IN</th>
                                 <th>Skype</th>
                                 <th>Other</th>
-                                @if (in_array(auth()->user()->role, ['Super Admin']))
+                          
                                 <th>Action</th>
-                                @endif
+                            
                             </tr>
                         </thead>
                         <tbody>
@@ -54,11 +54,12 @@
                                     {{-- <td> <a href="{{ $client->linkedin}}"></a></td> --}}
                                     <td>{{$client->skype}}</td>
                                     <td>{{$client->other}}</td>
-                                    @if (in_array(auth()->user()->role, ['Super Admin']))
+                                    @if (in_array(auth()->user()->role, ['Super Admin','Manager']))
                                     <td>
                                         <a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-inverse-dark">
                                             <i class="mdi mdi-account-edit btn-icon-append"></i>Edit
                                         </a>
+                                        @if (in_array(auth()->user()->role, ['Super Admin']))
                                         <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
@@ -66,6 +67,7 @@
                                                 <i class="mdi mdi-delete" style="font-size: 20px;"></i>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                     @endif
                                 </tr>

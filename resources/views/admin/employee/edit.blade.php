@@ -125,9 +125,9 @@
                                   <div class="form-group col-md-6">
                                       <label for="role">Role<span class="text-danger">*</span></label>
                                       <select id="role" name="role" class="form-control form-control-sm" >
-                                          <option value="staff" {{ old('role', $user->role) == 'staff' ? 'selected' : '' }}>Staff</option>
-                                          <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                                          <option value="manager" {{ old('role', $user->role) == 'manager' ? 'selected' : '' }}>Manager</option>
+                                          <option value="staff" {{ old('role', $user->role) == 'Staff' ? 'selected' : '' }}>Staff</option>
+                                          <option value="admin" {{ old('role', $user->role) == 'Super Admin' ? 'selected' : '' }}>Admin</option>
+                                          <option value="manager" {{ old('role', $user->role) == 'Manager' ? 'selected' : '' }}>Manager</option>
                                       </select>
                                       @if($errors->has("role"))
                                       <span class="error-message">{{ $errors->first('role') }}</span>

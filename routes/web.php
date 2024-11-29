@@ -31,7 +31,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-        Route::get('/profile', [LoginController::class, 'profile'])->name('profile');
+        Route::get('/profile/{id}', [LoginController::class, 'profile'])->name('profile');
         Route::put('/profile-update/{id}', [LoginController::class, 'profileUpdate'])->name('profileUpdate');
         Route::get('/userPassword/{id}', [LoginController::class, 'userPassword'])->name('userPassword');
         Route::put('/password-update/{id}', [LoginController::class, 'passwordUpdate'])->name('passwordUpdate');

@@ -70,12 +70,10 @@
 
 
             <li class="nav-item nav-profile dropdown">
-
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">              
               <div class="nav-profile-img">
                   {{-- <img src="{{ auth()->user()->image ? asset('public/admin/images/profile/{{auth()->user()->image}}') : asset('public/admin/images/profile/default.jpg') }}" alt="image"> --}}
                   <img src="{{ auth()->user()->image ? asset('public/admin/images/profile/' . auth()->user()->image) : asset('public/admin/images/profile/default.jpg') }}" alt="image" loading="lazy">
-
                   <span class="availability-status online"></span>
               </div>
               <div class="nav-profile-text">
@@ -85,7 +83,7 @@
 
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
 
-                  <a class="dropdown-item" href="{{ route('admin.profile') }}">
+                  <a class="dropdown-item" href="{{ route('admin.profile',['id'=> auth()->user()->id]) }}">
                   <i class="mdi mdi-account-edit me-2 me-2 text-primary"></i> 
                   Profile-info
                   </a>
@@ -106,21 +104,6 @@
                   <button type="submit"style="border: 5px  transparent;background:transparent;">Logout</button>
                   </form>
                   </a>
-
-                  <!-- <div class="dropdown-divider"></div>
-                
-                  <a class="dropdown-item" href="#" style="border: 5px  transparent;background:transparent;">
-                  <i class="mdi mdi-account-edit me-2 text-primary"></i> Profile-info </a>
-                  
-                  <div class="dropdown-divider"></div>
-                  
-                  <a class="dropdown-item" href="#" style="background-color:transparent;">
-                  <i class="mdi mdi-textbox-password me-2 text-primary"></i> Change Password </a>
-                  
-                  <div class="dropdown-divider"></div>
-                  
-                  <a class="dropdown-item" href="" style="background:transparent;">
-                  <i class="mdi mdi-settings me-2 text-primary"></i> Logout </a> -->
                   
             </li>
             </ul>
@@ -130,62 +113,4 @@
         </div>
         
       </nav>
-
-            <!-- <li class="nav-item d-none d-lg-block full-screen-link">
-              <a class="nav-link">
-                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-              </a>
-            </li> -->
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="mdi mdi-email-outline"></i>
-                <span class="count-symbol bg-warning"></span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                <h6 class="p-3 mb-0">Messages</h6>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <img src="{{ asset('public/admin/images/faces/face4.jpg') }}" alt="image" class="profile-pic">
-                  </div>
-                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
-                    <p class="text-gray mb-0"> 1 Minutes ago </p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <img src="{{ asset('public/admin/images/faces/face2.jpg') }}" alt="image" class="profile-pic">
-                  </div>
-                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
-                    <p class="text-gray mb-0"> 15 Minutes ago </p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <img src="{{ asset('public/admin/images/faces/face3.jpg') }}" alt="image" class="profile-pic">
-                  </div>
-                  <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
-                    <p class="text-gray mb-0"> 18 Minutes ago </p>
-                  </div>
-                </a>
-                <div class="dropdown-divider"></div>
-                <h6 class="p-3 mb-0 text-center">4 new messages</h6>
-              </div>
-            </li> -->
-            
-            <!-- <li class="nav-item nav-logout d-none d-lg-block">
-              <a class="nav-link" href="#">
-                <i class="mdi mdi-power"></i>
-              </a>
-            </li>
-            <li class="nav-item nav-settings d-none d-lg-block">
-              <a class="nav-link" href="#">
-                <i class="mdi mdi-format-line-spacing"></i>
-              </a>
-            </li> -->
           
