@@ -54,7 +54,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href=""> 
+              <a class="nav-link" href="{{ route('admin.modules.index') }}"> 
                 <span class="menu-title">Module</span>
                 <i class=" mdi mdi-view-module menu-icon"></i>
               </a>

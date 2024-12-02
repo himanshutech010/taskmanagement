@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\ProjectController;
 
 /*
@@ -76,6 +77,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/project', [ProjectController::class, 'index'])->name('projects.index');
         Route::get('/project/create', [ProjectController::class, 'create'])->name('projects.create');
         Route::post('/project', [ProjectController::class, 'store'])->name('projects.store');
+
+        Route::get('/module', [ModuleController::class, 'index'])->name('modules.index');
+        Route::get('/module/create', [ModuleController::class, 'create'])->name('modules.create');
+        Route::post('/module', [ModuleController::class, 'store'])->name('modules.store');
+ 
 
     });
 });

@@ -60,7 +60,7 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <span class="badge {{ $employee->status == 1 ? 'badge-success' : 'badge-danger' }}">
+                                        <span class="badge badge-rounded {{ $employee->status == 1 ? 'badge-success' : 'badge-danger' }}" style="border-radius: 20px; ">
                                             {{ $employee->status == 1 ? 'Active' : 'Inactive' }}
                                         </span>
                                     </td>

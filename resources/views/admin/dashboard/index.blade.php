@@ -19,7 +19,7 @@
             </div>
             <div class="row">
               <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card bg-gradient-success card-img-holder text-white" style="background: linear-gradient(to right, #4f7839, #2d6010) !important;">
                   <div class="card-body">
                     <img src="{{ asset('public/admin/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Weekly Task Done <i class="mdi mdi-chart-line mdi-24px float-right"></i>
@@ -30,7 +30,7 @@
                 </div>
               </div>
               <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card bg-gradient-info card-img-holder text-white" style="background: linear-gradient(to right, #33358b, #132460) !important;">
                   <div class="card-body">
                     <img src="{{ asset('public/admin/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Project Weekly Done <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
@@ -41,7 +41,7 @@
                 </div>
               </div>
               <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card bg-gradient-dark card-img-holder text-white">
                   <div class="card-body">
                     <img src="{{ asset('public/admin/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
                     <h4 class="font-weight-normal mb-3">Department Process <i class="mdi mdi-diamond mdi-24px float-right"></i>
