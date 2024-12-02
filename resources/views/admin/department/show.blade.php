@@ -45,7 +45,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="user_id">Select User</label>
-                            <select name="user_id" id="user_id" class="form-control" required>
+                            <select name="user_id" id="user_id" class="form-control form-control-sm" required>
                                 <option value="" disabled selected>Select a user</option>
                                 @foreach($unassignedUsers as $user)
                                 @if ($user->role!='Super Admin')

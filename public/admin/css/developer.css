@@ -21,3 +21,9 @@
 .form-check .form-check-label input[type="checkbox"] + .input-helper:before {
     border: solid #629a43 !important;
 }
+
+
+input::placeholder {
+    opacity: 1 !important;
+    color: rgb(64, 77, 60) !important;
+  }

@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="project">Select Project<span class="text-danger">*</span></label>
-                                <select id="project" name="project_id" class="form-control" required onchange="loadProjectEmployees(this.value)">
+                                <select id="project" name="project_id" class="form-control form-control-sm" required onchange="loadProjectEmployees(this.value)">
                                     <option value="" disabled selected>Choose...</option>
                                     @foreach($projects as $project)
                                         <option value="{{ $project->id }}">{{ $project->name }}</option>

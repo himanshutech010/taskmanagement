@@ -1926,7 +1926,7 @@ a {
   color: #0d6efd;
   text-decoration: underline; }
   a:hover {
-    color: #3e4b5b; }
+    color: black; }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
@@ -3548,7 +3548,7 @@ progress {
   .form-control:focus {
     color: #212529;
     background-color: #fff;
-    border-color: #86b7fe;
+    border-color: #86b7fe !important;
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); }
@@ -11899,7 +11899,9 @@ code {
 .badge-success, .preview-list .preview-item .preview-thumbnail .badge.badge-online {
   border: 1px solid #05b113;
   background: #27af4b;
-  color: #ffffff; }
+  color: black; 
+  
+}
 
 .badge-info, .preview-list .preview-item .preview-thumbnail .badge.badge-offline {
   border: 1px solid #198ae3;
@@ -12522,7 +12524,7 @@ code {
   background-image: none;
   border-color: rgba(62, 75, 91, 0); }
   .btn-inverse-dark:not(.btn-inverse-light) {
-    color: #3e4b5b; }
+    color: black; }
   .btn-inverse-dark:hover {
     color: #ffffff;
     background-color: #3e4b5b;
@@ -13296,7 +13298,7 @@ code {
     color: #c9c8c8; }
 
 .form-control {
-  border: 1px solid #ebedf2;
+  border: 1px solid #629a43 !important;
   font-family: "ubuntu-regular", sans-serif;
   font-size: 0.8125rem; }
   .form-control:focus {
@@ -14158,7 +14160,7 @@ dl {
             font-size: 1.125rem;
             line-height: 1;
             margin-left: auto;
-            color: #a8bfb4f5; }
+            color: #3e4b5b !important; }
             .rtl .sidebar .nav .nav-item .nav-link i.menu-icon {
               margin-left: 0;
               margin-right: auto; }
@@ -14185,7 +14187,7 @@ dl {
         .sidebar .nav .nav-item .nav-link .menu-title {
           color: inherit;
           display: inline-block;
-          font-size: 0.875rem;
+          font-size: 18px;
           line-height: 1;
           vertical-align: middle; }
         .sidebar .nav .nav-item .nav-link .badge {
@@ -14199,7 +14201,7 @@ dl {
           color: #629a43;
           font-family: "ubuntu-medium", sans-serif; }
         .sidebar .nav .nav-item.active > .nav-link i {
-          color: #629a43; }
+          color: #629a43 !important; }
       .sidebar .nav .nav-item:hover {
         background: #fcfcfc; }
       .sidebar .nav .nav-item.nav-profile .nav-link {

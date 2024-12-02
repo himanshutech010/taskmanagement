@@ -27,10 +27,8 @@
                                 <th>Client Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
-                                <th>Linked IN</th>
+                                <th>Linked In</th>
                                 <th>Skype</th>
-                                <th>Other</th>
-                          
                                 <th>Action</th>
                             
                             </tr>
@@ -44,16 +42,21 @@
                                     <td>
                                         @if($client->linkedin)
                                             <a href="{{ $client->linkedin }}" target="_blank" >
-                                                {{ $client->linkedin }}
+                                            <i class="mdi  mdi-linkedin-box" style="font-size: 25px;"></i> 
                                             </a>
                                         @else
                                             N/A
                                         @endif
                                     </td>
-                                    
-                                    {{-- <td> <a href="{{ $client->linkedin}}"></a></td> --}}
-                                    <td>{{$client->skype}}</td>
-                                    <td>{{$client->other}}</td>
+
+                                    <td> @if($client->skype)
+                                            <a href="{{ $client->skype }}" target="_blank" >
+                                            <i class="mdi mdi-skype-business" style="font-size: 25px;"></i> 
+                                            </a>
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
                                     @if (in_array(auth()->user()->role, ['Super Admin','Manager']))
                                     <td>
                                         <a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-inverse-dark">
