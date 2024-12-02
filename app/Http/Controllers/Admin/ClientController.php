@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class ClientController extends Controller
 {
@@ -13,7 +14,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
+        $clients = Client::where('isdeleted', 0)->get();
         return view('admin.clients.index', compact('clients')); 
     }
 
@@ -33,7 +34,7 @@ class ClientController extends Controller
         $validated = $request->validate([
             'client_name' => 'required|string|max:255',
             'mobile' => 'nullable|numeric|digits_between:6,15',
-            'email' => 'nullable|email|max:255',
+            'email' => ['required', 'email:rfc,dns', 'max:255', 'unique:clients,email'],
             'linkedin' => 'nullable|url|max:255',
             'skype' => 'nullable|string|max:255',
             'other' => 'nullable|string|max:255',
@@ -68,7 +69,7 @@ public function update(Request $request, $id)
 {
     $request->validate([
         'client_name' => 'required|string|max:255',
-        'email' => 'nullable|email|max:255',
+        'email' => ['required',  'email:rfc,dns', 'max:255',ValidationRule::unique('clients')->ignore($id)],
         'mobile' => 'nullable|numeric|digits_between:6,15',
         'linkedin' => 'nullable|url',
         'skype' => 'nullable|string|max:255',
@@ -89,7 +90,8 @@ public function update(Request $request, $id)
      */
     public function destroy($id)
     { $client = Client::findOrfail($id);
-        $client->delete();
+        $client->isdeleted = 1; 
+        $client->save();
 
         return redirect()->route('admin.clients.index')->with('success', 'Client deleted successfully.');
     }

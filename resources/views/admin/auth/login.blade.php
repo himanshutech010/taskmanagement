@@ -24,6 +24,10 @@
                     @endif
                   </div>
 
+                  @if($errors->has("status"))
+                    <span class="error-message">{{ $errors->first('status') }}</span>
+                    @endif
+
                   <div class="my-2 d-flex justify-content-between align-items-center">
                     <div class="form-check">
                       <label class="form-check-label ">

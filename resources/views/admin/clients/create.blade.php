@@ -42,7 +42,7 @@
                         <div class="row mb-4">
                             <!-- Email -->
                             <div class="form-group col-md-6">
-                                <label for="email">Email</label>
+                                <label for="email">Email<span class="text-danger">*</span></label>
                                 <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="Enter Email">
                                 @if($errors->has('email'))
                                     <span class="error-message">{{ $errors->first('email') }}</span>

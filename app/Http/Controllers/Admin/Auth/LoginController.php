@@ -42,6 +42,10 @@ class LoginController extends Controller
             return redirect()->back()->withErrors(['email' => 'The provided email does not match our records.']);
         }
 
+        if($user->status==0){
+            //dd($user->status);
+           return redirect()->back()->withErrors(['status'=>'Your account has been deactivated. Please contact the administrator.']);
+       }
         // Verify the password
         if (!Hash::check($credentials['password'], $user->password)) {
             // Password is incorrect
