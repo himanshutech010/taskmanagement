@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectAssign extends Model
 {
     use HasFactory;
-    
+    protected $table = 'project_assign';
     protected $fillable = [
         'project_id', 
         'dept_id', 
@@ -16,21 +16,21 @@ class ProjectAssign extends Model
         'is_moderator'
     ];
 
-    // Relationship: A project assign belongs to a project
     public function project()
     {
+        // Many assignments belong to one project
         return $this->belongsTo(Project::class, 'project_id');
     }
-
-    // Relationship: A project assign belongs to a department
+    
     public function department()
     {
+        // Many assignments belong to one department
         return $this->belongsTo(Department::class, 'dept_id');
     }
-
-    // Relationship: A project assign belongs to a user (employee)
+    
     public function employee()
     {
+        // Many assignments belong to one user
         return $this->belongsTo(User::class, 'user_id');
     }
 }

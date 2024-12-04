@@ -25,9 +25,15 @@ class Project extends Model
         return $this->belongsTo(Client::class);
     }
 
-    // Relationship: A project has many project assignments
-    public function assignments()
-    {
-        return $this->hasMany(ProjectAssign::class, 'project_id');
-    }
+    public function users()
+{
+    // Many-to-Many relationship via ProjectAssign
+    return $this->belongsToMany(User::class, 'project_assign', 'project_id', 'user_id');
+}
+
+public function assignments()
+{
+    // One-to-Many relationship for project assignments
+    return $this->hasMany(ProjectAssign::class, 'project_id');
+}
 }

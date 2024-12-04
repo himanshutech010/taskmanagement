@@ -77,6 +77,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/project', [ProjectController::class, 'index'])->name('projects.index');
         Route::get('/project/create', [ProjectController::class, 'create'])->name('projects.create');
         Route::post('/project', [ProjectController::class, 'store'])->name('projects.store');
+        Route::get('/project/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
+        Route::post('/project/employee/list', [ProjectController::class, 'showByList'])->name('project.employee.list');
 
         Route::get('/module', [ModuleController::class, 'index'])->name('modules.index');
         Route::get('/module/create', [ModuleController::class, 'create'])->name('modules.create');

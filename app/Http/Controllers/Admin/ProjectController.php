@@ -13,7 +13,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::with('user')->get();
+        $projects = Project::with(['users', 'client'])->get();
         return view('admin.project.index', compact('projects'));
     }
 
@@ -40,6 +40,7 @@ class ProjectController extends Controller
             'description' => 'nullable|string',
         ]);
 
+
         $project = Project::create([
             'name' => $validated['name'],
             'client_id' => $validated['client_id'],
@@ -57,7 +58,32 @@ class ProjectController extends Controller
                 'is_moderator' => $employeeId == $validated['moderator'],
             ]);
         }
-
         return redirect()->route('admin.projects.index')->with('success', 'Project created successfully!');
+    }
+
+
+
+    public function showByList(Request $request)
+    {
+        $departmentId = $request->id;
+
+        $department = Department::with(['users' => function ($query) {
+            $query->where('isdeleted', 0)->where('status', 1);
+        }])->findOrFail($departmentId);
+
+        return response()->json([
+            'employees' => $department->users->map(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                ];
+            }),
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $project = Project::findOrFail($id);
+        return view('admin.project.edit', compact('project'));
     }
 }

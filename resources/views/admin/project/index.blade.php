@@ -76,8 +76,8 @@
                                    
                                    
                                     <td>
-                                        <a href="{{ route('admin.projects.edit', $employee->id) }}" class="btn btn-inverse-dark "><i class="mdi mdi-account-edit btn-icon-append"></i>Edit</a>
-                                        <form action="{{ route('admin.projects.destroy', $employee->id) }}" method="POST" style="display:inline-block;">
+                                        <a href="" class="btn btn-inverse-dark "><i class="mdi mdi-account-edit btn-icon-append"></i>Edit</a>
+                                        <form action="" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-inverse-dark  btn-icon" onclick="return confirm('Are you sure you want to delete this project?')"><i class="mdi mdi-delete" style="font-size: 20px;"></i></button>
@@ -98,7 +98,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <ul>
-                                                    @forelse($projects->user as $users)
+                                                    @forelse($project->users as $user)
                                                         <li>{{ $user->name }}</li>
                                                     @empty
                                                         <li>No Employee assigned.</li>

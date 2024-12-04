@@ -1,9 +1,9 @@
 @extends('layout.admin.default')
-@section('title','Create Project')
+@section('title', 'Create Project')
 @section('content')
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title"> Create a Project </h3>
+        <h3 class="page-title">Create a Project</h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -24,20 +24,19 @@
                                 <label for="name">Project Name<span class="text-danger">*</span></label>
                                 <input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Enter Project Name" required>
                                 @error('name')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
                             <div class="form-group col-md-6">
                                 <label for="client">Client<span class="text-danger">*</span></label>
-                                <select id="client" name="client_id" class="form-control" required>
+                                <select id="client" name="client_id" class="form-control form-control-sm" required>
                                     <option value="" disabled selected>Choose...</option>
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->client_name }}</option>
                                     @endforeach
                                 </select>
                                 @error('client_id')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -45,48 +44,48 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="department">Department<span class="text-danger">*</span></label>
-                                <select id="department" name="department_id" class="form-control" required onchange="loadEmployees(this.value)">
+                                <select id="department" name="department_id" class="form-control form-control-sm" required onchange="loadEmployees(this.value)">
                                     <option value="" disabled selected>Choose...</option>
                                     @foreach($departments as $department)
                                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('department_id')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
+                         
                             <div class="form-group col-md-6">
-                                <label for="employee">Assign Employee(s)<span class="text-danger">*</span></label>
-                                <select id="employee" name="employees[]" class="form-control" multiple required>
-                                    <!-- Employee options will be populated dynamically -->
-                                </select>
+                                <label for="employee-checkboxes">Assign Employee(s)<span class="text-danger">*</span></label>
+                                <div id="employee-checkboxes" class="checkit">
+                                    <!-- Employee checkboxes will be populated dynamically -->
+                                </div>
                                 @error('employees')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                      
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="moderator">Assign Moderator<span class="text-danger">*</span></label>
-                                <select id="moderator" name="moderator" class="form-control" required>
+                                <select id="moderator" name="moderator" class="form-control form-control-sm" required>
                                     <!-- Moderator options will be populated dynamically -->
                                 </select>
                                 @error('moderator')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
                             <div class="form-group col-md-6">
                                 <label for="status">Status<span class="text-danger">*</span></label>
-                                <select id="status" name="status" class="form-control" required>
+                                <select id="status" name="status" class="form-control form-control-sm" required>
                                     <option value="" disabled selected>Choose...</option>
                                     <option value="Dev">Dev</option>
                                     <option value="Live">Live</option>
                                 </select>
                                 @error('status')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -96,15 +95,14 @@
                                 <label for="doi">Issued Date</label>
                                 <input id="doi" name="date" class="form-control" type="date" value="{{ old('date') }}">
                                 @error('date')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
                             <div class="form-group col-md-6">
                                 <label for="url">URL</label>
                                 <input id="url" class="form-control" type="text" name="url" value="{{ old('url') }}" placeholder="Enter URL">
                                 @error('url')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -113,7 +111,7 @@
                             <label for="description">Description</label>
                             <textarea id="description" name="description" class="form-control" rows="4" placeholder="Enter description">{{ old('description') }}</textarea>
                             @error('description')
-                                <span class="error-message">{{ $message }}</span>
+                                <span class="error-message text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -126,22 +124,73 @@
 </div>
 
 <script>
-    function loadEmployees(departmentId) {
-        // Clear previous data
-        document.getElementById('employee').innerHTML = '';
-        document.getElementById('moderator').innerHTML = '';
 
-        fetch(`/admin/department/${departmentId}/employees`)
-            .then(response => response.json())
-            .then(data => {
-                data.employees.forEach(employee => {
-                    const option = new Option(employee.name, employee.id);
-                    document.getElementById('employee').add(option);
+async function loadEmployees(departmentId) {
+    const employeeCheckboxContainer = document.getElementById('employee-checkboxes');
+    const moderatorSelect = document.getElementById('moderator');
 
-                    const modOption = new Option(employee.name, employee.id);
-                    document.getElementById('moderator').add(modOption);
-                });
+   
+    employeeCheckboxContainer.innerHTML = '';
+    moderatorSelect.innerHTML = '';
+
+    try {
+        const response = await fetch("{{ route('admin.project.employee.list') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({ id: departmentId })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Populate employee checkboxes
+            data.employees.forEach(employee => {
+                const checkboxWrapper = document.createElement('div');
+                checkboxWrapper.className = 'form-check';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'form-check-input checkitto';
+                checkbox.id = `employee-${employee.id}`;
+                checkbox.value = employee.id;
+                checkbox.name = 'employees[]';
+                checkbox.addEventListener('change', updateModeratorDropdown);
+
+                const label = document.createElement('label');
+                label.className = 'form-check-label';
+                label.htmlFor = `employee-${employee.id}`;
+                label.textContent = employee.name;
+
+                checkboxWrapper.appendChild(checkbox);
+                checkboxWrapper.appendChild(label);
+                employeeCheckboxContainer.appendChild(checkboxWrapper);
             });
+        } else {
+            console.error('Failed to load employees:', data.message);
+        }
+    } catch (error) {
+        console.error('Error fetching employees:', error);
     }
+}
+
+function updateModeratorDropdown() {
+    const employeeCheckboxContainer = document.getElementById('employee-checkboxes');
+    const moderatorSelect = document.getElementById('moderator');
+
+    // Clear previous options in Moderator dropdown
+    moderatorSelect.innerHTML = '';
+
+    // Get all checked employees and populate Moderator dropdown
+    const selectedCheckboxes = employeeCheckboxContainer.querySelectorAll('input[type="checkbox"]:checked');
+    selectedCheckboxes.forEach(checkbox => {
+        const option = document.createElement('option');
+        option.value = checkbox.value;
+        option.textContent = checkbox.nextElementSibling.textContent; // Get label text
+        moderatorSelect.appendChild(option);
+    });
+}
 </script>
 @endsection

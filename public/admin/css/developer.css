@@ -27,3 +27,19 @@ input::placeholder {
     opacity: 1 !important;
     color: rgb(64, 77, 60) !important;
   }
+
+  
+textarea::placeholder {
+    opacity: 1 !important;
+    color: rgb(64, 77, 60) !important;
+  }
+
+  .checkit{
+    display:flex !important;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .checkitto{
+    margin-left: 0px !important;
+  }
