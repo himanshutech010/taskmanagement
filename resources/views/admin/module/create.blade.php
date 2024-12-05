@@ -27,6 +27,7 @@
                                     @foreach($projects as $project)
                                         <option value="{{ $project->id }}">{{ $project->name }}</option>
                                     @endforeach
+                                 
                                 </select>
                                 @error('project_id')
                                     <span class="error-message">{{ $message }}</span>
@@ -44,12 +45,19 @@
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="employee">Assign Employee(s)<span class="text-danger">*</span></label>
+                                {{-- <label for="employee">Assign Employee(s)<span class="text-danger">*</span></label>
                                 <select id="employee" name="employees[]" class="form-control" multiple required>
                                     <!-- Employee options will be populated dynamically -->
                                 </select>
                                 @error('employees')
                                     <span class="error-message">{{ $message }}</span>
+                                @enderror --}}
+                                <label for="employee-checkboxes">Assign Employee(s)<span class="text-danger">*</span></label>
+                                <div id="employee-checkboxes" class="checkit">
+                                    <!-- Employee checkboxes will be populated dynamically -->
+                                </div>
+                                @error('employees')
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -83,18 +91,63 @@
 </div>
 
 <script>
-    function loadProjectEmployees(projectId) {
-        // Clear previous data
-        document.getElementById('employee').innerHTML = '';
 
-        fetch(`/admin/project/${projectId}/employees`)
-            .then(response => response.json())
-            .then(data => {
-                data.employees.forEach(employee => {
-                    const option = new Option(employee.name, employee.id);
-                    document.getElementById('employee').add(option);
-                });
+
+
+
+
+
+async function loadProjectEmployees(projectId) {
+
+    const employeeCheckboxContainer = document.getElementById('employee-checkboxes');
+
+    
+    employeeCheckboxContainer.innerHTML = '';
+    console.log(projectId);
+
+    try {
+      
+        const response = await fetch("{{ route('admin.modules.employee.list') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({ id: projectId }) 
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+       
+            data.employees.forEach(employee => {
+                const checkboxWrapper = document.createElement('div');
+                checkboxWrapper.className = 'form-check';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'form-check-input checkitto';
+                checkbox.id = `employee-${employee.id}`;
+                checkbox.value = employee.id;
+                checkbox.name = 'employees[]';
+             
+
+                const label = document.createElement('label');
+                label.className = 'form-check-label';
+                label.htmlFor = `employee-${employee.id}`;
+                label.textContent = employee.name;
+
+                checkboxWrapper.appendChild(checkbox);
+                checkboxWrapper.appendChild(label);
+                employeeCheckboxContainer.appendChild(checkboxWrapper);
             });
+        } else {
+            console.error('Failed to load employees:', data.message || 'Unknown error');
+        }
+    } catch (error) {
+        console.error('Error fetching employees:', error);
     }
+}
+
 </script>
 @endsection

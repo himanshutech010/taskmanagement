@@ -67,22 +67,28 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/department', [DepartmentController::class, 'store'])->name('department.store');
         Route::get('/department/info/{id}', [DepartmentController::class, 'show'])->name('department.show');
         Route::post('/admin/department/assign/{id}', [DepartmentController::class, 'assignUser'])->name('department.assign');
-        Route::delete('/admin/department/remove/{userId}/{departmentId}', [DepartmentController::class, 'detachUser'])->name('department.remove');
+        Route::delete('/admin/department/remove/{departmentId}/{userId}', [DepartmentController::class, 'detachUser'])->name('department.remove');
         Route::get('/department/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
         Route::put('/department/{id}', [DepartmentController::class, 'update'])->name('department.update');
-
         //  Route::get('/department/detete/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
         Route::delete('/department/delete/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
     
+
+        //Project management Route
         Route::get('/project', [ProjectController::class, 'index'])->name('projects.index');
         Route::get('/project/create', [ProjectController::class, 'create'])->name('projects.create');
         Route::post('/project', [ProjectController::class, 'store'])->name('projects.store');
         Route::get('/project/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
+        Route::get('/project/edit/{id}', [ProjectController::class, 'edit'])->name('project.edit');
+        Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update');
         Route::post('/project/employee/list', [ProjectController::class, 'showByList'])->name('project.employee.list');
+        Route::delete('/project/delete/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
 
+        //Module management Route
         Route::get('/module', [ModuleController::class, 'index'])->name('modules.index');
         Route::get('/module/create', [ModuleController::class, 'create'])->name('modules.create');
         Route::post('/module', [ModuleController::class, 'store'])->name('modules.store');
+        Route::post('/project/module/list', [ModuleController::class, 'empList'])->name('modules.employee.list');
  
 
     });

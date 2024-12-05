@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\ProjectAssign;
 use App\Models\ProjectModule;
 use App\Models\ProjectModuleDetail;
 use Illuminate\Http\Request;
@@ -13,14 +14,122 @@ class ModuleController extends Controller
 
     public function index()
     {
-        $modules = ProjectModule::with('project', 'details.assignProject.user')->get();
+        // $modules = ProjectModule::with('project', 'details.assignProject.user')->get();
+        $modules = ProjectModule::get();
         return view('admin.module.index', compact('modules'));
     }
+
+    public function empList(Request $request)
+    {
+
+    $request->validate([
+        'project_id' => 'required|exists:projects,id',
+    ]);
+
+    // Retrieve the project_id from the request
+    $projectId = $request->project_id;
+    dd($projectId);
+    // Fetch the list of users assigned to the project
+    $assignedEmployees = ProjectAssign::with('employee')
+        ->where('project_id', $projectId)
+        ->get();
+
+    // Check if any employees are assigned
+    if ($assignedEmployees->isEmpty()) {
+        return response()->json([
+            'success' => true,
+            'message' => 'No employees are assigned to this project.',
+            'data' => [],
+        ]);
+    }
+
+    // Format the response to return only relevant user data
+    $employeesData = $assignedEmployees->map(function ($assignment) {
+        return $assignment->employee; // Assuming `employee()` returns the user model
+    });
+
+    return response()->json([
+        'success' => true,
+        'data' => $employeesData,
+    ]);
+       //dd($request);
+        // $project = Project::with(['assignments', 'users'])->findOrFail($request->id);
+        // return response()->json([
+        //     'employees' => $project->users->map(function ($user) {
+        //         return [
+        //             'id' => $user->id,
+        //             'name' => $user->name,
+        //         ];
+        //     }),
+        // ]);
+
+
+//         $projectAsn = ProjectAssign::with('employee')->where('project_id',$request->id)->get();
+// dd($projectAsn);
+
+//         if ($projectAsn->isEmpty()) {
+//                         return response()->json(['error' => 'No project assignments found.'], 404);
+//                     }
+//         return response()->json([
+//             'employees' => $projectAsn->employee->map(function ($employee) {
+//                 return [
+//                     'id' => $employee->id,
+//                     'name' => $employee->name,
+//                 ];
+//             }),
+//         ]);
+
+    //    $projectAsn = ProjectAssign::with('employee')->where('project_id',$request->id)->get();
+    //    if ($projectAsn->isEmpty()) {
+    //             return response()->json(['error' => 'No project assignments found.'], 404);
+    //         }
+    //    //dd($projectAsn);
+    //     return response()->json([
+    //         'employees' => $projectAsn->employee->map(function ($employee) {
+    //             return [
+    //                 'id' => $employee->id,
+    //                 'name' => $employee->name,
+    //                 // 'asnId'=>$projectAsn->id,
+    //             ];
+    //         })
+    //     ]);
+
+
+    }
+
+//     public function empList(Request $request)
+// {
+//     // Fetch ProjectAssign records for the specified project ID
+//     $projectAssignments = ProjectAssign::with('employee')
+//         ->where('project_id', $request->id)
+//         ->get();
+         
+//         dd($projectAssignments);
+
+//     if ($projectAssignments->isEmpty()) {
+//         return response()->json(['error' => 'No project assignments found.'], 404);
+//     }
+
+//     // Prepare employees' data
+//     $employees = $projectAssignments->flatMap(function ($assignment) {
+//         return $assignment->employee->map(function ($employee) use ($assignment) {
+//             return [
+//                 'id' => $employee->id,
+//                 'name' => $employee->name,
+//                 'asnId' => $assignment->id,
+//             ];
+//         });
+//     });
+
+//     return response()->json(['employees' => $employees]);
+// }
+
 
     
     public function create()
     {
-        $projects = Project::with('assignments.user')->get();
+       // $projects = Project::with('assignments.user')->get();
+        $projects = Project::get();
         return view('admin.module.create', compact('projects'));
     }
 

@@ -16,14 +16,23 @@ class Project extends Model
         'status', 
         'url', 
         'description', 
-        'client_id'
+        'client_id',
+        'isdeleted',
     ];
 
+
+    protected $casts = [
+
+ 'isdeleted'=>'boolean',
+ 
+    ];
     // Relationship: A project belongs to a client
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
+
+
 
     public function users()
 {

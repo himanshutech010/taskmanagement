@@ -52,40 +52,49 @@
                         </thead>
                         <tbody>
                             @foreach($projects as $project)
-                                <tr>
-                                    <td>{{ $project->name }}</td>
-                                    <td>{{ $project->client_name}}</td>
-                                    <td>{{ $project->dept_name }}</td>
-                                    <td>{{ $project->url}}</td>
-                                    <td>{{ $project->moderator }}</td>
-                                    <td>
-                                        <!-- View Team Modal Trigger -->
-                                        <button class="btn btn-sm btn-gradient-success" data-toggle="modal" data-target="#viewProjectModal{{ $project->id }}">
-                                            View Team
+                            <tr>
+                                <td>{{ $project->name }}</td>
+                                <td>{{ $project->client->client_name  }}</td>
+                                @php
+                                    $department = $assinProjects->where('project_id', $project->id)->first()?->department;
+                                @endphp
+                                <td>{{ $department->name  }}</td>
+                                <td><a class="btn btn-sm btn-gradient-success" href="{{ $project->url ?? '#' }}"  target="{{ $project->url ? '_blank' : '_self' }}">{{$project->url ? 'Link' : 'N/A'}}</a></td>
+                                
+                             @php
+                                    $moderator = $assinProjects->where('project_id', $project->id)->where('is_moderator', true)->first()?->employee;
+                                @endphp
+                                <td>{{ $moderator->name ?? 'N/A' }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-gradient-success" data-toggle="modal" data-target="#viewProjectModal{{ $project->id }}">
+                                        View Team
+                                    </button>
+                                </td>
+                                <td>{{ $project->date ?? 'N/A' }}</td>
+                                <td>{{ $project->status }}</td>
+                                {{-- <td>
+                                    <span class="badge {{ $project->status == 1 ? 'badge-success' : 'badge-danger' }}">
+                                        {{ $project->status == 1 ? 'DEV' : 'LIVE' }}
+                                    </span>
+                                </td> --}}
+                                @if (auth()->user()->role === 'Super Admin')
+                                <td>
+                                    {{-- <a href="" class="btn btn-inverse-dark">
+                                        <i class="mdi mdi-account-edit btn-icon-append"></i>Edit
+                                    </a> --}}
+                                    <a href="{{ route('admin.project.edit', $project->id) }}" class="btn btn-inverse-dark "><i class="mdi mdi-account-edit btn-icon-append"></i>Edit</a>
+                                    <form action="{{ route('admin.project.destroy', $project->id) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-inverse-dark btn-icon" onclick="return confirm('Are you sure you want to delete this project?')">
+                                            <i class="mdi mdi-delete" style="font-size: 20px;"></i>
                                         </button>
-                                    </td>
-                                    <td>{{ $project->started_date }}</td>
-                                    <td>{{ $project->status}}</td>
-                                    
-                                    <td>
-                                        <span class="badge {{ $project->status == 1 ? 'badge-success' : 'badge-danger' }}">
-                                            {{ $project->status == 1 ? 'DEV' : 'LIVE' }}
-                                        </span>
-                                    </td>
-                                    @if (in_array(auth()->user()->role, ['Super Admin']))
-                                   
-                                   
-                                    <td>
-                                        <a href="" class="btn btn-inverse-dark "><i class="mdi mdi-account-edit btn-icon-append"></i>Edit</a>
-                                        <form action="" method="POST" style="display:inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-inverse-dark  btn-icon" onclick="return confirm('Are you sure you want to delete this project?')"><i class="mdi mdi-delete" style="font-size: 20px;"></i></button>
-                                        </form>
-                                    </td>
-                                    @endif
-                                </tr>
-
+                                    </form>
+                                </td>
+                                @endif
+                            </tr>
+                            <!-- Modal Code Remains Same -->
+                            {{-- @endforeach --}}
                                 <!-- View Project Modal -->
                                 <div class="modal fade" id="viewProjectModal{{ $project->id }}" tabindex="-1" role="dialog" aria-labelledby="viewProjectModalLabel{{ $project->id }}" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
