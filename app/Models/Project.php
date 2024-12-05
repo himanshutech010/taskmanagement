@@ -11,11 +11,11 @@ class Project extends Model
 
 
     protected $fillable = [
-        'name', 
-        'date', 
-        'status', 
-        'url', 
-        'description', 
+        'name',
+        'date',
+        'status',
+        'url',
+        'description',
         'client_id',
         'isdeleted',
     ];
@@ -23,8 +23,8 @@ class Project extends Model
 
     protected $casts = [
 
- 'isdeleted'=>'boolean',
- 
+        'isdeleted' => 'boolean',
+
     ];
     // Relationship: A project belongs to a client
     public function client()
@@ -35,14 +35,14 @@ class Project extends Model
 
 
     public function users()
-{
-    // Many-to-Many relationship via ProjectAssign
-    return $this->belongsToMany(User::class, 'project_assign', 'project_id', 'user_id');
-}
+    {
+        // Many-to-Many relationship via ProjectAssign
+        return $this->belongsToMany(User::class, 'project_assign', 'project_id', 'user_id');
+    }
 
-public function assignments()
-{
-    // One-to-Many relationship for project assignments
-    return $this->hasMany(ProjectAssign::class, 'project_id');
-}
+    public function assignments()
+    {
+        // One-to-Many relationship for project assignments
+        return $this->hasMany(ProjectAssign::class, 'project_id');
+    }
 }

@@ -54,21 +54,18 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_online' => 'boolean',// Cast the is_online attribute to a boolean
-        'isdeleted'=>'boolean',
-//pppppp
-
+        'is_online' => 'boolean', // Cast the is_online attribute to a boolean
+        'isdeleted' => 'boolean',
     ];
-  
+
 
     public function departments()
-{
-    return $this->belongsToMany(Department::class, 'user_dept', 'user_id', 'dept_id');
-} 
+    {
+        return $this->belongsToMany(Department::class, 'user_dept', 'user_id', 'dept_id');
+    }
 
-public function projectAssignments()
-{
-    return $this->hasMany(ProjectAssign::class, 'user_id');
-}
-
+    public function projectAssignments()
+    {
+        return $this->hasMany(ProjectAssign::class, 'user_id');
+    }
 }

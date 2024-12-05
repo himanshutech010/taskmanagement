@@ -15,7 +15,7 @@ class ClientController extends Controller
     public function index()
     {
         $clients = Client::where('isdeleted', 0)->get();
-        return view('admin.clients.index', compact('clients')); 
+        return view('admin.clients.index', compact('clients'));
     }
 
     /**
@@ -23,7 +23,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('admin.clients.create'); 
+        return view('admin.clients.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class ClientController extends Controller
             'skype' => 'nullable|string|max:255',
             'other' => 'nullable|string|max:255',
             'location' => 'nullable|string',
-           
+
         ]);
 
         Client::create($validated);
@@ -52,7 +52,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        return view('clients.show', compact('client')); 
+        return view('clients.show', compact('client'));
     }
 
     /**
@@ -60,37 +60,38 @@ class ClientController extends Controller
      */
 
     public function edit($id)
-{
-    $client = Client::findOrFail($id);
-    return view('admin.clients.edit', compact('client'));
-}
+    {
+        $client = Client::findOrFail($id);
+        return view('admin.clients.edit', compact('client'));
+    }
 
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'client_name' => 'required|string|max:255',
-        'email' => ['required',  'email:rfc,dns', 'max:255',ValidationRule::unique('clients')->ignore($id)],
-        'mobile' => 'nullable|numeric|digits_between:6,15',
-        'linkedin' => 'nullable|url',
-        'skype' => 'nullable|string|max:255',
-        'other' => 'nullable|string|max:255',
-        'location' => 'nullable|string',
-        
-    ]);
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'client_name' => 'required|string|max:255',
+            'email' => ['required',  'email:rfc,dns', 'max:255', ValidationRule::unique('clients')->ignore($id)],
+            'mobile' => 'nullable|numeric|digits_between:6,15',
+            'linkedin' => 'nullable|url',
+            'skype' => 'nullable|string|max:255',
+            'other' => 'nullable|string|max:255',
+            'location' => 'nullable|string',
 
-    $client = Client::findOrFail($id);
-    $client->update($request->all());
+        ]);
 
-    return redirect()->route('admin.clients.index')->with('success', 'Client updated successfully.');
-}
+        $client = Client::findOrFail($id);
+        $client->update($request->all());
+
+        return redirect()->route('admin.clients.index')->with('success', 'Client updated successfully.');
+    }
 
 
     /**
      * Remove the specified client from storage.
      */
     public function destroy($id)
-    { $client = Client::findOrfail($id);
-        $client->isdeleted = 1; 
+    {
+        $client = Client::findOrfail($id);
+        $client->isdeleted = 1;
         $client->save();
 
         return redirect()->route('admin.clients.index')->with('success', 'Client deleted successfully.');

@@ -15,7 +15,7 @@
 
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title">Module Data</h3>
+        <h3 class="page-title">Module</h3>
         @if (in_array(auth()->user()->role, ['Super Admin','Manager']))
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -30,21 +30,14 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Module List</h4>
-                    <table class="table table-hover">
-                        <thead>
-                        
-                        </thead>
-                        <tbody>
-                        
-                        </tbody>
-                    </table>
+        <div class="col-md-4 grid-margin stretch-card">
+                <div class="card card-hover" style="background: #b5c7b1;box-shadow: 0px 0px 12px 0px #b7b7b7;">
+                  <div class="card-body">
+                    <h4 class="card-title"></h4>
+                    </div>
                 </div>
+              </div>
             </div>
-        </div>
     </div>
 </div>
 

@@ -15,8 +15,8 @@ class ProjectController extends Controller
     {
         $projects = Project::where('isdeleted', 0)->with(['users', 'client'])->get();
         $assinProjects = ProjectAssign::with('department')->get();
-     
-        return view('admin.project.index', compact('projects','assinProjects'));
+
+        return view('admin.project.index', compact('projects', 'assinProjects'));
     }
 
 
@@ -88,28 +88,28 @@ class ProjectController extends Controller
     {
         // Retrieve the project with its related data
         $project = Project::with(['assignments', 'users'])->findOrFail($id);
-    // dd($project);
-    // $project= $project->where('isdeleted', 0);
+        // dd($project);
+        // $project= $project->where('isdeleted', 0);
 
         $clients = Client::all();
         $departments = Department::all();
         $assinProjects = ProjectAssign::with('department')->get();
-    
-       
+
+
         // Fetch the employees and moderator details from the assignments
-       
+
         // $assignedEmployees = $project->assignments->pluck('user_id')->toArray();
         $assignedEmployees = $project->assignments->pluck('user_id')->toArray();
-       
+
         // $assignedEmployees = $project->assignments->toArray();
-    //    dd( $assignedEmployees);
+        //    dd( $assignedEmployees);
         // dd($assignedEmployees);
         $moderator = $assinProjects->where('project_id', $project->id)->where('is_moderator', true)->first()?->employee;
         // $moderator = $project->assignments->where('is_moderator', true)->first()?->user; 
-    
-        return view('admin.project.edit', compact('project', 'clients', 'departments', 'assinProjects','assignedEmployees', 'moderator'));
+
+        return view('admin.project.edit', compact('project', 'clients', 'departments', 'assinProjects', 'assignedEmployees', 'moderator'));
     }
-    
+
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
@@ -123,9 +123,9 @@ class ProjectController extends Controller
             'url' => 'nullable|url',
             'description' => 'nullable|string',
         ]);
-    
+
         $project = Project::findOrFail($id);
-    
+
         // Update project details
         $project->update([
             'name' => $validated['name'],
@@ -135,10 +135,10 @@ class ProjectController extends Controller
             'description' => $validated['description'],
             'date' => $validated['date'],
         ]);
-    
+
         // Remove existing assignments and create new ones
         ProjectAssign::where('project_id', $id)->delete();
-    
+
         foreach ($validated['employees'] as $employeeId) {
             ProjectAssign::create([
                 'project_id' => $project->id,
@@ -147,7 +147,7 @@ class ProjectController extends Controller
                 'is_moderator' => $employeeId == $validated['moderator'],
             ]);
         }
-    
+
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully!');
     }
 

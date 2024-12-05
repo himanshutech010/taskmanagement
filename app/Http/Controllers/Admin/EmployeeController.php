@@ -15,8 +15,6 @@ class EmployeeController extends Controller
 
     public function index()
     {
-
-
         // List all employees
         $records = User::where('isdeleted', 0)->orderBy('id', "desc")->get();
         return view('admin.employee.index', compact('records'));
@@ -35,20 +33,14 @@ class EmployeeController extends Controller
         // Validate input data
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
-            // 'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email:rfc,dns', 'max:255', 'unique:users,email'],
             'user_name' => ['required', 'string', 'max:255', 'unique:users,user_name'],
-
             'password' => ['required', 'confirmed'],
-
-
             'phone' => ['nullable', 'numeric',  'digits_between:10,10'],
             'role' => ['required', 'in:Super Admin,Manager,Staff'],
             'gender' => ['required', 'in:Male,Female,Other'],
             'date_of_birth' => ['nullable', 'date'],
-
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            // 'role' => ['required', 'in:staff,admin,manager'],
             'description' => ['nullable', 'string', 'max:500'],
         ]);
 
@@ -74,8 +66,6 @@ class EmployeeController extends Controller
         // Create the employee
 
         $user = User::create($validated);
-        // $user->staff_id='EMP-'.$user->id;
-        // dd($user->staff_id);
         $user->save();
 
         return redirect()->route('admin.employee.index')->with('success', 'Employee created successfully.');
@@ -98,19 +88,14 @@ class EmployeeController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
-            // 'name' => ['required', 'string', 'max:255'],
-            // 'email' => ['required', 'string', 'email', 'max:255',ValidationRule::unique('users')->ignore($user->id)],
             'email' => ['required',  'email:rfc,dns', 'max:255', ValidationRule::unique('users')->ignore($user->id)],
             'user_name' => ['required', 'string', 'max:255', ValidationRule::unique('users')->ignore($user->id)],
             'password' => ['nullable', 'confirmed'],
             'phone' => ['nullable', 'string', 'max:10', 'min:10'],
-            // 'date_of_birth' => ['nullable', 'date'], 
-            // 'gender' => ['required', 'in:male,female,other'],
             'role' => ['required', 'in:Super Admin,Manager,Staff'],
             'gender' => ['required', 'in:Male,Female,Other'],
             'date_of_birth' => ['nullable', 'date'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            // 'role' => ['required', 'in:staff,admin,manager'],
             'description' => ['nullable', 'string', 'max:500'],
             'status' => ['required', 'string', 'in:1,0'],
         ]);
@@ -127,9 +112,8 @@ class EmployeeController extends Controller
             $validated['image'] = $image_name;
         }
 
-        // dd($request->status);
+
         $validated['status'] = $request->status == "1" ? 1 : 0;
-        // dd( $validated['status']);
         if ($request->filled('password')) {
             $validated['password'] = Hash::make($request->password);
         } else {
@@ -138,7 +122,6 @@ class EmployeeController extends Controller
 
         $user->fill($validated);
 
-        // $user->password = Hash::make($validated['password']);
         $user->save();
         return redirect()->route('admin.employee.index')->with('success', 'User Updated successfully');
     }

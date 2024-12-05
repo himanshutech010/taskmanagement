@@ -59,8 +59,14 @@
                                     $department = $assinProjects->where('project_id', $project->id)->first()?->department;
                                 @endphp
                                 <td>{{ $department->name  }}</td>
-                                <td><a class="btn btn-sm btn-gradient-success" href="{{ $project->url ?? '#' }}"  target="{{ $project->url ? '_blank' : '_self' }}">{{$project->url ? 'Link' : 'N/A'}}</a></td>
-                                
+                                <td>
+                                 @if($project->url)
+                                            <a class="btn-link" href="{{ $project->url }}" target="_blank" style="font-weight: 600;">Link
+                                            </a>
+                                        @else
+                                            N/A
+                                        @endif
+                                        </td>
                              @php
                                     $moderator = $assinProjects->where('project_id', $project->id)->where('is_moderator', true)->first()?->employee;
                                 @endphp
@@ -71,12 +77,12 @@
                                     </button>
                                 </td>
                                 <td>{{ $project->date ?? 'N/A' }}</td>
-                                <td>{{ $project->status }}</td>
-                                {{-- <td>
-                                    <span class="badge {{ $project->status == 1 ? 'badge-success' : 'badge-danger' }}">
-                                        {{ $project->status == 1 ? 'DEV' : 'LIVE' }}
+                        
+                                 <td>
+                                    <span class="badge {{ $project->status == 'Dev' ? 'badge-danger' :'badge-success'}}">
+                                        {{ $project->status == 'Dev' ? 'DEV' : 'LIVE' }}
                                     </span>
-                                </td> --}}
+                                </td> 
                                 @if (auth()->user()->role === 'Super Admin')
                                 <td>
                                     {{-- <a href="" class="btn btn-inverse-dark">

@@ -21,9 +21,9 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <button class="btn btn-block btn-lg btn-gradient-success" data-toggle="modal" data-target="#assignEmployeeModal">
-                            + Assign an Employee
-                        </button>
+                                        <a href="{{ route('admin.department.index') }}" class="btn  btn-lg btn-gradient-success">Back</a>
+
+                       
                     </li>
                 </ol>
             </nav>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Assign</button>
+                        <button type="submit" class="btn btn-gradient-success">Assign</button>
 
                     </div>
                 </form>
@@ -71,7 +71,12 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <div class="d-flex justify-content-between">
                     <h4 class="card-title">{{ $department->name }} -> Employee Table</h4>
+                     <button class="btn btn-lg btn-outline-success" data-toggle="modal" data-target="#assignEmployeeModal">
+                            + Assign an Employee
+                        </button>
+</div>
                     <table class="table table-hover">
                         <thead>
                             <tr>

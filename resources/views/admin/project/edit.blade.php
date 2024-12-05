@@ -88,11 +88,11 @@
                                             <label class="form-check-label" for="employee-{{ $employee }}">{{ $emp->name}}</label>
                                         </div>
                                     @endforeach
-                                </div>
+                                    </div>
                                 @error('employees')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                           
+                            </div>
                         </div>
 
                         <div class="row">

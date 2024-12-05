@@ -19,6 +19,7 @@ class ProjectModule extends Model
         return $this->belongsTo(Project::class, 'project_id');
     }
 
+
     public function details()
     {
         return $this->hasMany(ProjectModuleDetail::class, 'module_id');

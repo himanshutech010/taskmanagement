@@ -5,50 +5,7 @@
 @section('title', 'Departments')
 @section('content')
 
-<style>
-/* Card Styling */
-.card-link {
-    text-decoration: none;
-    color: inherit; /* Maintain the color styling */
-    position: relative;
-}
 
-.card-hover {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden; /* Ensures hover effects are contained within the card */
-}
-
-.card-hover:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* Hover Actions Styling */
-.card-hover .hover-actions {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.card-hover:hover .hover-actions {
-    opacity: 1;
-}
-
-.hover-actions button,
-.hover-actions a {
-    margin: 0 5px;
-    color: white !important;
-    text-decoration: none;
-}
-</style>
 
 <div class="content-wrapper">
     <div class="page-header">
@@ -70,7 +27,7 @@
         <div class="row d-flex justify-content-center">
         @foreach($departments as $dept)
         <div class="col-md-3 d-flex align-items-stretch grid-margin">
-            <div class="card bg-gradient-success card-img-holder text-white card-hover">
+            <div class="card card-img-holder text-white card-hover" style="color: black !important;width: 100%; box-shadow: 0px 0px 12px 0px #b7b7b7; background: #a1bd9e;">
                 <a href="{{ route('admin.department.show', $dept->id) }}" class="text-decoration-none card-link">
                     <div class="card-body">
                         <img src="{{ asset('public/admin/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />

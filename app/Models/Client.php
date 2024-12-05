@@ -35,7 +35,6 @@ class Client extends Model
      */
     protected $casts = [
         'is_test' => 'boolean',
-        'isdeleted'=>'boolean',
+        'isdeleted' => 'boolean',
     ];
 }
-

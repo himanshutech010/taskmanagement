@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectModuleDetail extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'module_id',
         'assign_project_id',
