@@ -34,7 +34,7 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
             'user_id' => 'nullable|exists:users,id',
         ]);
 
@@ -86,7 +86,7 @@ class DepartmentController extends Controller
     {
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
         ]);
 
 

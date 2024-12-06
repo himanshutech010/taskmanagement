@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule as ValidationRule;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {
@@ -39,7 +40,7 @@ class EmployeeController extends Controller
             'phone' => ['nullable', 'numeric',  'digits_between:10,10'],
             'role' => ['required', 'in:Super Admin,Manager,Staff'],
             'gender' => ['required', 'in:Male,Female,Other'],
-            'date_of_birth' => ['nullable', 'date'],
+            'date_of_birth' => ['nullable', 'date','before_or_equal:'.Carbon::today()],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'description' => ['nullable', 'string', 'max:500'],
         ]);
@@ -94,7 +95,7 @@ class EmployeeController extends Controller
             'phone' => ['nullable', 'string', 'max:10', 'min:10'],
             'role' => ['required', 'in:Super Admin,Manager,Staff'],
             'gender' => ['required', 'in:Male,Female,Other'],
-            'date_of_birth' => ['nullable', 'date'],
+            'date_of_birth' => ['nullable', 'date','before_or_equal:'.Carbon::today()],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'description' => ['nullable', 'string', 'max:500'],
             'status' => ['required', 'string', 'in:1,0'],

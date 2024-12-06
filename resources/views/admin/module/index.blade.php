@@ -34,6 +34,17 @@
                 <div class="card card-hover" style="background: #b5c7b1;box-shadow: 0px 0px 12px 0px #b7b7b7;">
                   <div class="card-body">
                     <h4 class="card-title"></h4>
+                    <div>
+                        @foreach ( $modules as $module)
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">{{ $module->name }}</h4>
+                            <a href="{{ route('admin.modules.edit',  $module->id) }}" class="btn btn-sm  btn-gradient-success">
+                                Edit Module.{{ $module->name }}
+                            </a>
+                            </div>
+                        @endforeach
+                      
+                    </div>
                     </div>
                 </div>
               </div>

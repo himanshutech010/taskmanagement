@@ -89,7 +89,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/module/create', [ModuleController::class, 'create'])->name('modules.create');
         Route::post('/module', [ModuleController::class, 'store'])->name('modules.store');
         Route::post('/project/module/list', [ModuleController::class, 'empList'])->name('modules.employee.list');
- 
+        Route::get('/module/edit/{id}', [ModuleController::class, 'edit'])->name('modules.edit');
+        Route::put('/module/{id}', [ModuleController::class, 'update'])->name('modules.update');
 
     });
 });

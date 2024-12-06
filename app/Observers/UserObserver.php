@@ -16,7 +16,7 @@ class UserObserver
     {
         //
         $id = strlen($user->id) >= 2 ? $user->id :"0".$user->id;
-        $user->staff_id = 'EMP-'.$id;
+        $user->staff_id = 'BT-'.$id;
         $user->save();
     }
 

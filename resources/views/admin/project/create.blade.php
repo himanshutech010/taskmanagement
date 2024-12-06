@@ -22,21 +22,21 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="name">Project Name<span class="text-danger">*</span></label>
-                                <input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Enter Project Name" required>
+                                <input id="name" class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Enter Project Name" >
                                 @error('name')
-                                    <span class="error-message text-danger">{{ $message }}</span>
+                                    <span class="error-message ">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="client">Client<span class="text-danger">*</span></label>
-                                <select id="client" name="client_id" class="form-control form-control-sm" required>
+                                <select id="client" name="client_id" class="form-control form-control-sm" >
                                     <option value="" disabled selected>Choose...</option>
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->client_name }}</option>
                                     @endforeach
                                 </select>
                                 @error('client_id')
-                                    <span class="error-message text-danger">{{ $message }}</span>
+                                    <span class="error-message ">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -44,14 +44,14 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="department">Department<span class="text-danger">*</span></label>
-                                <select id="department" name="department_id" class="form-control form-control-sm" required onchange="loadEmployees(this.value)">
+                                <select id="department" name="department_id" class="form-control form-control-sm"  onchange="loadEmployees(this.value)">
                                     <option value="" disabled selected>Choose...</option>
                                     @foreach($departments as $department)
                                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('department_id')
-                                    <span class="error-message text-danger">{{ $message }}</span>
+                                    <span class="error-message ">{{ $message }}</span>
                                 @enderror
                             </div>
                          
@@ -61,7 +61,7 @@
                                     <!-- Employee checkboxes will be populated dynamically -->
                                 </div>
                                 @error('employees')
-                                    <span class="error-message text-danger">{{ $message }}</span>
+                                    <span class="error-message ">{{ $message }}</span>
                                 @enderror
                             </div>
                       
@@ -70,22 +70,22 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="moderator">Assign Moderator<span class="text-danger">*</span></label>
-                                <select id="moderator" name="moderator" class="form-control form-control-sm" required>
+                                <select id="moderator" name="moderator" class="form-control form-control-sm" >
                                     <!-- Moderator options will be populated dynamically -->
                                 </select>
                                 @error('moderator')
-                                    <span class="error-message text-danger">{{ $message }}</span>
+                                    <span class="error-message ">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="status">Status<span class="text-danger">*</span></label>
-                                <select id="status" name="status" class="form-control form-control-sm" required>
+                                <select id="status" name="status" class="form-control form-control-sm" >
                                     <option value="" disabled selected>Choose...</option>
                                     <option value="Dev">Dev</option>
                                     <option value="Live">Live</option>
                                 </select>
                                 @error('status')
-                                    <span class="error-message text-danger">{{ $message }}</span>
+                                    <span class="error-message ">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -95,14 +95,14 @@
                                 <label for="doi">Issued Date</label>
                                 <input id="doi" name="date" class="form-control" type="date" value="{{ old('date') }}">
                                 @error('date')
-                                    <span class="error-message text-danger">{{ $message }}</span>
+                                    <span class="error-message ">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="url">URL</label>
                                 <input id="url" class="form-control" type="text" name="url" value="{{ old('url') }}" placeholder="Enter URL">
                                 @error('url')
-                                    <span class="error-message text-danger">{{ $message }}</span>
+                                    <span class="error-message ">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                             <label for="description">Description</label>
                             <textarea id="description" name="description" class="form-control" rows="4" placeholder="Enter description">{{ old('description') }}</textarea>
                             @error('description')
-                                <span class="error-message text-danger">{{ $message }}</span>
+                                <span class="error-message ">{{ $message }}</span>
                             @enderror
                         </div>
 

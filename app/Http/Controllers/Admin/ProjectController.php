@@ -23,7 +23,7 @@ class ProjectController extends Controller
     // Show form to create a new project
     public function create()
     {
-        $clients = Client::all();
+        $clients = Client::where('isdeleted', 0)->get();
         $departments = Department::all();
         return view('admin.project.create', compact('clients', 'departments'));
     }
@@ -90,8 +90,8 @@ class ProjectController extends Controller
         $project = Project::with(['assignments', 'users'])->findOrFail($id);
         // dd($project);
         // $project= $project->where('isdeleted', 0);
-
-        $clients = Client::all();
+        $clients = Client::where('isdeleted', 0)->get();
+      //  $clients = Client::all();
         $departments = Department::all();
         $assinProjects = ProjectAssign::with('department')->get();
 

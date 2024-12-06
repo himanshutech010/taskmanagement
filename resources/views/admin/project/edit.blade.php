@@ -30,16 +30,16 @@
                             <div class="form-group col-md-6">
                                 <label for="name">Project Name<span class="text-danger">*</span></label>
                                 <input id="name" name="name" type="text" class="form-control" 
-                                    value="{{ old('name', $project->name) }}" placeholder="Enter Project Name" required>
-                                @error('name')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    value="{{ old('name', $project->name) }}" placeholder="Enter Project Name" >
+                                    @error('name')
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <!-- Client -->
                             <div class="form-group col-md-6">
                                 <label for="client">Client<span class="text-danger">*</span></label>
-                                <select id="client" name="client_id" class="form-control form-control-sm" required>
+                                <select id="client" name="client_id" class="form-control form-control-sm" >
                                     <option value="" disabled>Choose...</option>
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}" {{ old('client_id', $project->client_id) == $client->id ? 'selected' : '' }}>
@@ -48,7 +48,7 @@
                                     @endforeach
                                 </select>
                                 @error('client_id')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                     @endforeach
                                 </select>
                                 @error('department_id')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -77,9 +77,14 @@
                                     <div id="employee-checkboxes" class="checkit">
                                     @foreach($assignedEmployees as $employee)
                                     @php
+                                 
                                     $emp = $assinProjects->where('project_id', $project->id)->where('user_id',$employee )->first()?->employee;
+                                    // $emp=$emp->where('isdeleted', 0);
+                                   // dd($emp);
                                      @endphp
                                     {{-- {{dd( $employee)}} --}}
+                                    @if ($emp->isdeleted==0)
+                                  
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" id="employee-{{ $employee }}" 
                                                 name="employees[]" value="{{ $employee }}" onchange="updateModeratorDropdown()"
@@ -87,10 +92,11 @@
                                                 {{ in_array($employee, old('employees', $assignedEmployees)) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="employee-{{ $employee }}">{{ $emp->name}}</label>
                                         </div>
+                                        @endif
                                     @endforeach
                                     </div>
                                 @error('employees')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -110,7 +116,7 @@
                                     @endforeach
                                 </select>
                                 @error('moderator')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -122,7 +128,7 @@
                                     <option value="Live" {{ old('status', $project->status) == 'Live' ? 'selected' : '' }}>Live</option>
                                 </select>
                                 @error('status')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -134,7 +140,7 @@
                                 <input id="doi" name="date" type="date" class="form-control" 
                                     value="{{ old('date', $project->date) }}">
                                 @error('date')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -144,7 +150,7 @@
                                 <input id="url" name="url" type="text" class="form-control" 
                                     value="{{ old('url', $project->url) }}" placeholder="Enter URL">
                                 @error('url')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="error-message text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
