@@ -71,12 +71,14 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    @if (in_array(auth()->user()->role, ['Super Admin']))
                     <div class="d-flex justify-content-between">
                     <h4 class="card-title">{{ $department->name }} -> Employee Table</h4>
                      <button class="btn btn-lg btn-outline-success" data-toggle="modal" data-target="#assignEmployeeModal">
                             + Assign an Employee
                         </button>
-</div>
+                       </div>
+                       @endif
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -92,9 +94,16 @@
                         </thead>
                         <tbody>
                             @foreach($department->users as $employee)
+                            
                                 <tr>            
                                 <td>{{$employee->staff_id}}</td>
-                                    <td>{{ $employee->name }}</td>
+                                @if ($employee->status==0)
+                                <td><span class="text-danger">{{$employee->name}}->Inactive</span></td>
+                                @else
+                                <td>{{$employee->name}}</td>
+                                
+                                @endif
+                            
                                     <td>{{ $employee->email }}</td>
                                     <td>{{ $employee->phone }}</td>
                                     @if (in_array(auth()->user()->role, ['Super Admin']))

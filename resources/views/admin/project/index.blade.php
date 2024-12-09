@@ -45,7 +45,7 @@
                                 <th>Team</th>
                                 <th>Start Date</th>
                                 <th>Status</th>
-                                @if (in_array(auth()->user()->role, ['Super Admin']))                                   
+                                @if (in_array(auth()->user()->role, ['Super Admin','Manager']))                                   
                                 <th>Action</th>
                                 @endif
                             </tr>
@@ -83,12 +83,13 @@
                                         {{ $project->status == 'Dev' ? 'DEV' : 'LIVE' }}
                                     </span>
                                 </td> 
-                                @if (auth()->user()->role === 'Super Admin')
+                                 @if (in_array(auth()->user()->role, ['Super Admin','Manager']))         
                                 <td>
                                     {{-- <a href="" class="btn btn-inverse-dark">
                                         <i class="mdi mdi-account-edit btn-icon-append"></i>Edit
                                     </a> --}}
                                     <a href="{{ route('admin.project.edit', $project->id) }}" class="btn btn-inverse-dark "><i class="mdi mdi-account-edit btn-icon-append"></i>Edit</a>
+                                    @if (in_array(auth()->user()->role, ['Super Admin']))    
                                     <form action="{{ route('admin.project.destroy', $project->id) }}" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
@@ -96,6 +97,7 @@
                                             <i class="mdi mdi-delete" style="font-size: 20px;"></i>
                                         </button>
                                     </form>
+                                    @endif
                                 </td>
                                 @endif
                             </tr>
@@ -114,7 +116,14 @@
                                             <div class="modal-body">
                                                 <ul>
                                                     @forelse($project->users as $user)
-                                                        <li>{{ $user->name }}</li>
+                                                    @if ($user->status==0)
+                                                    <li><span class="text-danger"> {{ $user->name }}->Inactive</span></li>
+
+                                                    @else
+                                                    <li>{{ $user->name }}</li>
+                                                        
+                                                    @endif
+                                                       
                                                     @empty
                                                         <li>No Employee assigned.</li>
                                                     @endforelse

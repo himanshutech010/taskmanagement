@@ -51,18 +51,36 @@
                                 <label for="employee-checkboxes">Assigned Employee(s)<span class="text-danger">*</span></label>
                                 <div id="employee-checkboxes" class="checkit">
                                     @foreach($assignedEmployees as $assignment)
-                                        <div class="form-check">
-                                            <input type="checkbox" 
-                                                   class="form-check-input checkitto" 
-                                                   id="employee-{{ $assignment->employee->id }}" 
-                                                   name="employees[]" 
-                                                   value="{{ $assignment->id }}" 
-                                                
-                                                   {{ in_array($assignment->id, $moduleAssignedEmployees) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="employee-{{ $assignment->employee->id }}">
-                                                {{ $assignment->employee->name }}
-                                            </label>
-                                        </div>
+                                    @if ( $assignment->employee->status==0)
+                                    <div class="form-check">
+                                        <input type="checkbox" 
+                                               class="form-check-input checkitto" 
+                                               id="employee-{{ $assignment->employee->id }}" 
+                                               name="employees[]" 
+                                               value="{{ $assignment->id }}" 
+                                            
+                                               {{ in_array($assignment->id, $moduleAssignedEmployees) ? 'checked' : '' }}>
+                                        <label class="form-check-label text-danger" for="employee-{{ $assignment->employee->id }}">
+                                            {{ $assignment->employee->name }}->Inactive
+                                        </label>
+                                    </div>
+                                    @else
+                                    <div class="form-check">
+                                        <input type="checkbox" 
+                                               class="form-check-input checkitto" 
+                                               id="employee-{{ $assignment->employee->id }}" 
+                                               name="employees[]" 
+                                               value="{{ $assignment->id }}" 
+                                            
+                                               {{ in_array($assignment->id, $moduleAssignedEmployees) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="employee-{{ $assignment->employee->id }}">
+                                            {{ $assignment->employee->name }}
+                                        </label>
+                                    </div>
+
+
+                                    @endif
+                                   
                                     @endforeach
                                 </div>
                                 @error('employees')

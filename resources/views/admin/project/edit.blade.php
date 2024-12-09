@@ -85,13 +85,25 @@
                                     {{-- {{dd( $employee)}} --}}
                                     @if ($emp->isdeleted==0)
                                   
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="employee-{{ $employee }}" 
-                                                name="employees[]" value="{{ $employee }}" onchange="updateModeratorDropdown()"
-                                             
-                                                {{ in_array($employee, old('employees', $assignedEmployees)) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="employee-{{ $employee }}">{{ $emp->name}}</label>
-                                        </div>
+                                    @if ($emp->status==0)
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="employee-{{ $employee }}" 
+                                            name="employees[]" value="{{ $employee }}" onchange="updateModeratorDropdown()"
+                                         
+                                            {{ in_array($employee, old('employees', $assignedEmployees)) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="employee-{{ $employee }}"><span class="text-danger">{{ $emp->name}}->Inactive</span></label>
+                                    </div>  
+                                    @else  
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="employee-{{ $employee }}" 
+                                            name="employees[]" value="{{ $employee }}" onchange="updateModeratorDropdown()"
+                                         
+                                            {{ in_array($employee, old('employees', $assignedEmployees)) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="employee-{{ $employee }}">{{ $emp->name}}</label>
+                                    </div>
+
+                                    @endif
+                                      
                                         @endif
                                     @endforeach
                                     </div>
@@ -110,9 +122,17 @@
                                     $moderator = $assinProjects->where('project_id', $project->id)->where('is_moderator', true)->first()?->employee;
                                 @endphp --}}
                                     @foreach($project->assignments as $assignment)
-                                        <option value="{{ $assignment->user_id }}" {{ old('moderator', $moderator->id) == $assignment->user_id ? 'selected' : '' }}>
-                                            {{ $assignment->employee->name }}
-                                        </option>
+                                    @if ($assignment->employee->status==0)
+                                    <option  class="text-danger" value="{{ $assignment->user_id }}"  {{ old('moderator', $moderator->id) == $assignment->user_id ? 'selected' : '' }}>
+                                 {{ $assignment->employee->name }}->Inactive
+                                    </option>  
+                                    @else  
+                                    <option value="{{ $assignment->user_id }}" {{ old('moderator', $moderator->id) == $assignment->user_id ? 'selected' : '' }}>
+                                        {{ $assignment->employee->name }}
+                                    </option>
+
+                                    @endif
+                                       
                                     @endforeach
                                 </select>
                                 @error('moderator')

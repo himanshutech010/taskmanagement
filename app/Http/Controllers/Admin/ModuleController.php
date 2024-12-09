@@ -16,7 +16,12 @@ class ModuleController extends Controller
     public function index()
     {
 
-        $modules = ProjectModule::with('project')->get();
+        $modules = ProjectModule::with(['project','details.assignProject.employee'])->get();
+        // $assignedEmployees = ProjectAssign::with('employee')
+        // ->whereHas('project', function ($query) use ($module) {
+        //     $query->where('id', $module->project_id);
+        // })
+        // ->get();
         return view('admin.module.index', compact('modules'));
     }
 
@@ -40,9 +45,11 @@ class ModuleController extends Controller
             ->get()
             ->map(function ($assignment) {
                 return [
+                
                     'id' => $assignment->employee->id,
                     'name' => $assignment->employee->name,
                 ];
+            
             });
 
         // Return the employees as a JSON response
@@ -108,6 +115,7 @@ class ModuleController extends Controller
 {
     // Fetch the module to be edited along with project and assigned employees// 
     $module = ProjectModule::with(['details.assignProject.employee', 'project'])->findOrFail($id);
+    // dd($module);
 
     // Fetch all projects for the dropdown
     $projects = Project::all();

@@ -16,7 +16,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::with('user')->get(); // Eager load users
+        $departments = Department::with('user')->get(); 
         return view('admin.department.index', compact('departments'));
     }
 
@@ -52,8 +52,11 @@ class DepartmentController extends Controller
     public function show($id)
     {
 
+        // $department = Department::with(['users' => function ($query) {
+        //     $query->where('isdeleted', 0)->where('status', 1);
+        // }])->findOrFail($id);
         $department = Department::with(['users' => function ($query) {
-            $query->where('isdeleted', 0)->where('status', 1);
+            $query->where('isdeleted', 0);
         }])->findOrFail($id);
 
 

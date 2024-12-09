@@ -24,4 +24,7 @@ class ProjectModule extends Model
     {
         return $this->hasMany(ProjectModuleDetail::class, 'module_id');
     }
+
+  
+
 }
