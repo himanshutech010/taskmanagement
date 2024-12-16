@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +92,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/project/module/list', [ModuleController::class, 'empList'])->name('modules.employee.list');
         Route::get('/module/edit/{id}', [ModuleController::class, 'edit'])->name('modules.edit');
         Route::put('/module/{id}', [ModuleController::class, 'update'])->name('modules.update');
+
+        //Tasks management Route //
+        Route::get('/task', [TaskController::class, 'index'])->name('task.index');
+        Route::get('/task/create', [TaskController::class, 'create'])->name('task.create');
+        Route::post('/task', [TaskController::class, 'store'])->name('task.store');
+        // Route::post('/project/task/list', [TaskController::class, 'empList'])->name('task.module.list');
+        // Route::post('/project/task/list', [TaskController::class, 'empList'])->name('task.employee.list');task.destroy
+
+        Route::post('/project/task/modules', [TaskController::class, 'loadModules'])->name('task.module.list');
+        Route::post('/project/task/employees', [TaskController::class, 'loadEmployees'])->name('task.employee.list');
+        Route::get('/task/edit/{id}', [TaskController::class, 'edit'])->name('task.edit');
+        Route::put('/task/{id}', [TaskController::class, 'update'])->name('task.update');
+        Route::delete('/task/delete/{id}', [TaskController::class, 'destroy'])->name('task.destroy');
+     
+
 
     });
 });

@@ -42,7 +42,7 @@
                                 <select id="client" name="client_id" class="form-control form-control-sm" >
                                     <option value="" disabled>Choose...</option>
                                     @foreach($clients as $client)
-                                        <option value="{{ $client->id }}" {{ old('client_id', $project->client_id) == $client->id ? 'selected' : '' }}>
+                                        <option value="{{ $client->id }}" {{ old('client_id', $project->client_id) == $client->id ? 'selected' : '' }} >
                                             {{ $client->client_name }}
                                         </option>
                                     @endforeach

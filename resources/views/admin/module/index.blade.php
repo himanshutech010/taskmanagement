@@ -50,6 +50,12 @@
                                             {{-- @foreach ($module->details->where('module_id',$module->id)->assignProject->employee as $emp )
                                                 <h5>{{$emp->name}}</h5>
                                             @endforeach --}}
+                                            {{-- @php
+                                            $emp=   $assignedEmployees->whereHas('project', function ($query) use ($module) {
+            $query->where('id', $module->project_id);
+        })
+        ->get();
+                                            @endphp --}}
                                             <h6 class="card-text">Increased by 20%</h6>
                                         </div>
                                     </a>

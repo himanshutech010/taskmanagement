@@ -21,6 +21,7 @@ class ProjectController extends Controller
 
 
     // Show form to create a new project
+    
     public function create()
     {
         $clients = Client::where('isdeleted', 0)->get();

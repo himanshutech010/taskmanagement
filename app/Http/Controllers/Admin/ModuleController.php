@@ -17,6 +17,7 @@ class ModuleController extends Controller
     {
 
         $modules = ProjectModule::with(['project','details.assignProject.employee'])->get();
+        // $assignedEmployees = ProjectAssign::with('employee')->get();
         // $assignedEmployees = ProjectAssign::with('employee')
         // ->whereHas('project', function ($query) use ($module) {
         //     $query->where('id', $module->project_id);
@@ -55,9 +56,6 @@ class ModuleController extends Controller
         // Return the employees as a JSON response
         return response()->json(['employees' => $employees]);
         }
-
-
-
 
 
     public function store(Request $request)
