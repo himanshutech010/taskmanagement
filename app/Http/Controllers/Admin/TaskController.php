@@ -58,7 +58,7 @@ class TaskController extends Controller
 
      public function store(Request $request)
      {
-        // dd($request);
+        
          // Validate the incoming request data
          $validated = $request->validate([
              'name' => 'required|string|max:255',
@@ -72,11 +72,13 @@ class TaskController extends Controller
              'taskValue' => 'nullable|array',
              'taskValue.*' => 'string|max:255',
              'commentValue' => 'nullable|array',
-             'commentValue.*' => 'string|max:255',
+             'commentValue.*' => 'nullable|string|max:255',
              'isactive' => 'nullable|array',
              'isactive.*' => 'boolean',
          ]);
       
+        //  dd(  $validated['isactive']);
+        //  dd($request);
          // Automatically assign the user who created the task
          $validated['created_by'] = auth()->user()->id;
      
@@ -90,7 +92,7 @@ class TaskController extends Controller
              'project_id' => $validated['project_id'] ?? null,
              'created_by' => $validated['created_by'],
          ]);
-     
+    //  dd( $validated['isactive']);
          // Create associated task checklists and comments
          if (!empty($validated['taskValue'])) {
              foreach ($validated['taskValue'] as $index => $taskValue) {
@@ -152,7 +154,7 @@ class TaskController extends Controller
 {
     $request->validate([
         'project_id' => 'required|exists:projects,id', // Validate project_id
-        'module_id' => 'nullable|exists:project_modules,id', // Validate module_id if provided
+        'module_id' => 'nullable|exists:project_modules,id', // Validate module_id if provided    
     ]);
 
     $employees = [];
@@ -209,9 +211,9 @@ public function edit($id) {
     $projects = Project::all();
     $modules=ProjectModule::where('project_id',$task->project_id)->get();
     // dd($id);
-    $taskCheckList=TaskCheckList::where('taskId',$id)->get();
+    $taskCheckList=TaskCheckList::where('taskId',$id)->where('isdelete',0)->get();
     // dd( $taskCheckList);
-    
+    $users=User::get();
  
  $comment=TaskCheckListComment::all();
 
@@ -219,7 +221,7 @@ public function edit($id) {
 
     // dd($assignedUsers);
     
-    return view('admin.tasks.edit', compact('task', 'projects','modules','taskCheckList','comment'));
+    return view('admin.tasks.edit', compact('task', 'projects','modules','taskCheckList','comment','users'));
 }
 
 
@@ -234,6 +236,7 @@ public function edit($id) {
 
 public function update(Request $request, $id)
 {
+    // dd("jhfijnis");
     $validated = $request->validate([
         // Validation rules
         'name' => 'required|string|max:255',
@@ -247,15 +250,17 @@ public function update(Request $request, $id)
         'taskValue' => 'nullable|array',
         'taskValue.*' => 'string|max:255',
         'commentValue' => 'nullable|array',
-        'commentValue.*' => 'string|max:255',
-        'isactive' => 'nullable|array',
+        'commentValue.*' => 'nullable|string|max:255',
+        'isactive' => 'array',
         'isactive.*' => 'boolean',
         'taskCheckListIdd' => 'nullable|array',
         'commentValueId'=>'nullable|array',
+        // 'isdelete'=>'required',
         
     ]);
 
-    $validated['updated_by'] = auth()->user()->id;
+    // dd( $request->isactive);
+    $validated['modified_by'] = auth()->user()->id;
 
     $task = Task::findOrFail($id);
 
@@ -266,7 +271,7 @@ public function update(Request $request, $id)
         'Deadline' => $validated['Deadline'] ?? null,
         'Module_id' => $validated['Module_id'] ?? null,
         'project_id' => $validated['project_id'] ?? null,
-        'updated_by' => $validated['updated_by'],
+        'modified_by' => $validated['modified_by'],
     ]);
 
 
@@ -288,8 +293,9 @@ public function update(Request $request, $id)
                 if ($checkList) {
                     // Update the existing checklist values
                     $checkList->taskValue = $taskValue;
+                    $checkList->modified_by = $validated['modified_by'];
                     $checkList->isactive = $validated['isactive'][$index] ?? 1;
-                    $checkList->isdelete = 0;
+                    // $checkList->isdelete = 0;
                     error_log('Some message here.');
                     $checkList->save();
               
@@ -304,7 +310,7 @@ public function update(Request $request, $id)
                 $checkList->taskValue = $taskValue;
                 $checkList->isactive = $validated['isactive'][$index] ?? 1;
                 $checkList->isdelete = 0;
-                $checkList->created_by = $validated['updated_by'];
+                $checkList->created_by = $validated['modified_by'];
                 error_log('Some message here.2');
                 $checkList->save();
             }
@@ -322,8 +328,9 @@ public function update(Request $request, $id)
                     if ($comment) {
                         // Update existing comment values
                         $comment->commentValue = $validated['commentValue'][$index];
+                        $comment->modified_by = $validated['modified_by'];
                         $comment->isactive = 1;
-                        $comment->isdelete = 0;
+                        // $comment->isdelete = 0;
                         $comment->save();
                     } else {
                         // If no matching comment is found, skip this iteration
@@ -333,7 +340,7 @@ public function update(Request $request, $id)
                     // Create a new comment if no comment ID is provided
                     $comment = new TaskCheckListComment();
                     $comment->taskCheckListId = $checkList->id;
-                    $comment->created_by = $validated['updated_by'];
+                    $comment->created_by = $validated['modified_by'];
                     $comment->commentValue = $validated['commentValue'][$index];
                     $comment->isactive = 1;
                     $comment->isdelete = 0;
@@ -347,7 +354,7 @@ public function update(Request $request, $id)
     $task->assignees()->detach();
     foreach ($validated['userAssigneId'] as $userId) {
         $task->assignees()->attach($userId, [
-            'created_by' => $validated['updated_by'],
+            'created_by' => $validated['modified_by'],
             'isactive' => 1,
             'isdelete' => 0,
         ]);
@@ -356,6 +363,31 @@ public function update(Request $request, $id)
     return redirect()->route('admin.task.index')->with('success', 'Task updated successfully!');
 }
 
+public function destroy_cm($idc,$idm ){
+//$idm
+    // dd("vhvxd");
+    // dd($idm);
+    $taskc = TaskCheckList::find($idc);
+  
+    // $taskm = TaskCheckListComment::find($idm);
+
+    if (!$taskc || $taskc->isdelete) {
+        return response()->json(['message' => 'Task not found'], 404);
+    }
+
+    // Soft delete the task by updating the isdelete flag
+    $taskc->update(['isdelete' => 1]);
+    if($idm!='00'){
+        $taskm = TaskCheckListComment::findOrFail($idm);
+        $taskm->isdelete = 1;
+        $taskm->save();
+
+    }
+    // return response()->json(['message' => 'Task deleted successfully']);
+    // return view('admin.tasks.edit')->with('success', ' TaskcheckList deleted successfully');
+    return redirect()->back()->with('success', 'TaskCheckList deleted successfully');
+
+}
 
     /**
      * Soft delete the specified task.

@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\ProjectAssign;
 use App\Models\ProjectModule;
 use App\Models\ProjectModuleDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,6 +24,10 @@ class ModuleController extends Controller
         //     $query->where('id', $module->project_id);
         // })
         // ->get();
+        // $projAssin=  $assignedEmployees = ProjectAssign::with('employee')->get();
+
+// $projAssin->employee(33);
+       
         return view('admin.module.index', compact('modules'));
     }
 
@@ -30,6 +35,7 @@ class ModuleController extends Controller
     {
         // $projects = Project::with('assignments.user')->get();
         $projects = Project::get();
+      
         return view('admin.module.create', compact('projects'));
     }
 
@@ -117,6 +123,7 @@ class ModuleController extends Controller
 
     // Fetch all projects for the dropdown
     $projects = Project::all();
+  
 
     // Fetch employees specifically assigned to the current module
     $assignedEmployees = ProjectAssign::with('employee')
@@ -128,11 +135,13 @@ class ModuleController extends Controller
     // Fetch employees already selected in the module
     $moduleAssignedEmployees = $module->details->pluck('assign_project_id')->toArray();
 
+    // dd( $moduleAssignedEmployees);
     return view('admin.module.edit', [
         'module' => $module,
         'projects' => $projects,
         'assignedEmployees' => $assignedEmployees,
         'moduleAssignedEmployees' => $moduleAssignedEmployees,
+      
     ]);
 }
 

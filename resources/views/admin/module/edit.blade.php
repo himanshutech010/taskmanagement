@@ -58,7 +58,7 @@
                                                id="employee-{{ $assignment->employee->id }}" 
                                                name="employees[]" 
                                                value="{{ $assignment->id }}" 
-                                            
+                                       
                                                {{ in_array($assignment->id, $moduleAssignedEmployees) ? 'checked' : '' }}>
                                         <label class="form-check-label text-danger" for="employee-{{ $assignment->employee->id }}">
                                             {{ $assignment->employee->name }}->Inactive
