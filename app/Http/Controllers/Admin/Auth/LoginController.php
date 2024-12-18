@@ -49,8 +49,10 @@ class LoginController extends Controller
         // Verify the password
         if (!Hash::check($credentials['password'], $user->password)) {
             // Password is incorrect
-            return redirect()->back()->withErrors(['password' => 'The provided password is incorrect.']);
+            return redirect()->back()->withErrors(['password' => 'The provided password is incorrect.'])->withInput();
         }
+
+ 
 
         // Attempt login with the provided credentials
         if (Auth::attempt($credentials)) {

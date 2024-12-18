@@ -202,8 +202,8 @@
 
       var gradientStrokeViolet = ctx.createLinearGradient(0, 0, 0, 181);
       gradientStrokeViolet.addColorStop(0, 'rgba(218, 140, 255, 1)');
-      gradientStrokeViolet.addColorStop(1, 'rgba(154, 85, 255, 1)');
-      var gradientLegendViolet = 'linear-gradient(to right, rgba(218, 140, 255, 1), rgba(154, 85, 255, 1))';
+      gradientStrokeViolet.addColorStop(1, 'rgba(140, 255, 140, 1)');
+      var gradientLegendViolet = 'linear-gradient(to right, rgba(140, 255, 140, 1), rgba(140, 255, 140, 1))';
       
       var gradientStrokeBlue = ctx.createLinearGradient(0, 0, 0, 360);
       gradientStrokeBlue.addColorStop(0, 'rgba(54, 215, 232, 1)');

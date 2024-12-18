@@ -56,6 +56,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'is_online' => 'boolean', // Cast the is_online attribute to a boolean
         'isdeleted' => 'boolean',
+        'date_of_birth' => 'datetime',
     ];
 
 

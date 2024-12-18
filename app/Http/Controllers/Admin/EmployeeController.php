@@ -40,7 +40,7 @@ class EmployeeController extends Controller
             'phone' => ['nullable', 'numeric',  'digits_between:10,10'],
             'role' => ['required', 'in:Super Admin,Manager,Staff'],
             'gender' => ['required', 'in:Male,Female,Other'],
-            'date_of_birth' => ['nullable', 'date','before_or_equal:'.Carbon::today()],
+            'date_of_birth' => ['nullable', 'date', 'before_or_equal:' . Carbon::today()],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'description' => ['nullable', 'string', 'max:500'],
         ]);
@@ -95,7 +95,7 @@ class EmployeeController extends Controller
             'phone' => ['nullable', 'string', 'max:10', 'min:10'],
             'role' => ['required', 'in:Super Admin,Manager,Staff'],
             'gender' => ['required', 'in:Male,Female,Other'],
-            'date_of_birth' => ['nullable', 'date','before_or_equal:'.Carbon::today()],
+            'date_of_birth' => ['nullable', 'date', 'before_or_equal:' . Carbon::today()],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'description' => ['nullable', 'string', 'max:500'],
             'status' => ['required', 'string', 'in:1,0'],
@@ -137,4 +137,24 @@ class EmployeeController extends Controller
 
         return redirect()->route('admin.employee.index')->with('success', 'User deleted successfully');
     }
+
+    public function show($id)
+    {
+        $employee = User::with('departments')->findOrFail($id);
+        return view('admin.employee.details', compact('employee'));
+    }
+
+    public function toggleStatus(Request $request)
+{
+    $employee = User::findOrFail($request->id);
+    $employee->status = !$employee->status;
+    $employee->save();
+
+    return response()->json([
+        'success' => true,
+        'newStatus' => $employee->status,
+        'statusText' => $employee->status == 1 ? 'Active' : 'Inactive',
+        'statusClass' => $employee->status == 1 ? 'badge-success' : 'badge-danger'
+    ]);
+}
 }

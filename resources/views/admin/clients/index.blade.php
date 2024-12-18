@@ -1,3 +1,11 @@
+<!-- Add in the <head> -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Add before the closing </body> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 @extends('layout.admin.default')
 @section('title', 'Clients')
 @section('content')
@@ -20,7 +28,6 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Client Table</h4>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -36,7 +43,11 @@
                         <tbody>
                             @foreach($clients as $client)
                                 <tr>
-                                    <td>{{ $client->client_name }}</td>
+                                    <td><a href="#" class="view-client-details" data-id="{{ $client->id }}"
+                                                data-toggle="modal" data-target="#clientDetailsModal"
+                                                style="color:green;text-decoration: none;">
+                                                {{ $client->client_name }}
+                                            </a></td>
                                     <td>{{ $client->email }}</td>
                                     <td>{{ $client->mobile }}</td>
                                     <td>
@@ -59,9 +70,12 @@
                                     </td>
                                     @if (in_array(auth()->user()->role, ['Super Admin','Manager']))
                                     <td>
-                                        <a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-inverse-dark">
-                                            <i class="mdi mdi-account-edit btn-icon-append"></i>Edit
-                                        </a>
+                                    <button type="button" class="btn btn-inverse-dark btn-icon">
+                                                    <a href="{{ route('admin.clients.edit', $client->id) }}"><i
+                                                            class="mdi mdi-account-edit btn-icon-append"
+                                                            style="color:black;font-size:20px;"></i></a>
+                                                </button>
+                                    
                                         @if (in_array(auth()->user()->role, ['Super Admin']))
                                         <form action="{{ route('admin.clients.destroy', $client->id) }}" method="POST" style="display:inline-block;">
                                             @csrf
@@ -74,6 +88,30 @@
                                     </td>
                                     @endif
                                 </tr>
+                                 <!-- Client Details Modal -->
+                                    <div class="modal fade" id="clientDetailsModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="clientDetailsModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog " role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="clientDetailsModalLabel">Client Details
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" id="client-details-content">
+                                                    Loading...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-gradient-success"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Modal -->
                             @endforeach
                         </tbody>
                     </table>
@@ -82,5 +120,30 @@
         </div>
     </div>
 </div>
+
+   <script>
+        $(document).ready(function() {
+            $('.view-client-details').on('click', function() {
+                const clientId = $(this).data('id');
+
+                // Clear previous content
+                $('#client-details-content').html('Loading...');
+
+                // AJAX request
+                $.ajax({
+                    url: "{{ url('admin/client') }}/" + clientId,
+                    method: 'GET',
+                    success: function(response) {
+                        $('#client-details-content').html(response);
+                    },
+                    error: function() {
+                        $('#client-details-content').html(
+                            '<p class="text-danger">Failed to load details.</p>');
+                    }
+                });
+            });
+        });
+
+    </script>
 
 @endsection

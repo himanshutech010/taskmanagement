@@ -11897,14 +11897,13 @@ code {
   color: #ffffff; }
 
 .badge-success, .preview-list .preview-item .preview-thumbnail .badge.badge-online {
-  border: 1px solid #05b113;
-  background: #27af4b;
-  color: black; 
+  font-size: 16px;
+  background: linear-gradient(to right, #629a43, #629a43) !important;
+  color: #ffffff; 
   
 }
 
 .badge-info, .preview-list .preview-item .preview-thumbnail .badge.badge-offline {
-  border: 1px solid #198ae3;
   background: #198ae3;
   color: #ffffff; }
 
@@ -11914,7 +11913,7 @@ code {
   color: #ffffff; }
 
 .badge-danger {
-  border: 1px solid #be0002;
+  font-size: 16px;
   background: #be0002;
   color: #ffffff; }
 
@@ -14113,8 +14112,7 @@ dl {
 
 /* Sidebar */
 .sidebar {
-  position: fixed;
-    left: 0;
+  
   min-height: calc(100vh - 70px);
   background: #ffffff;
   font-family: "ubuntu-regular", sans-serif;
@@ -14439,7 +14437,6 @@ dl {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-left: auto;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;

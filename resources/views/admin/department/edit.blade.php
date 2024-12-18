@@ -33,7 +33,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-gradient-success mr-2">Save Changes</button>
-                        <a href="{{ route('admin.department.index') }}" class="btn btn-light">Cancel</a>
+                        <a href="{{ route('admin.department.index') }}" class="btn btn-outline-success me-2">Cancel</a>
                     </form>
                 </div>
             </div>

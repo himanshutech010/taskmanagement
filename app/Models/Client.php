@@ -37,4 +37,9 @@ class Client extends Model
         'is_test' => 'boolean',
         'isdeleted' => 'boolean',
     ];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'client_id');
+    }
 }

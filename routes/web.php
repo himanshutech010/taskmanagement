@@ -50,6 +50,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/employee/edit/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
         Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.update');
         Route::delete('/employee/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+        Route::get('/employee/{id}', [EmployeeController::class, 'show'])->name('employee.show');
+        Route::post('/employee/toggle-status', [EmployeeController::class, 'toggleStatus'])->name('employee.toggleStatus');
 
 
 
@@ -60,6 +62,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/client/edit/{id}', [ClientController::class, 'edit'])->name('clients.edit');
         Route::put('/client/{id}', [ClientController::class, 'update'])->name('clients.update');
         Route::delete('/client/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
+        Route::get('/client/{id}', [ClientController::class, 'show'])->name('clients.show');
 
 
         //Department management routes

@@ -11,7 +11,7 @@
                  @csrf
                  
                 <div class="form-group">
-                    <input id="email" type="email" name="email" value=""  class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email">
+                    <input id="email" type="email" name="email"value="{{ old('email') }}"  class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email">
                             @if($errors->has("email"))
                             <span class="error-message">{{ $errors->first('email') }}</span>
                             @endif

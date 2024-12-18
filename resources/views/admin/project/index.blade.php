@@ -33,7 +33,6 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Project List</h4>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -79,16 +78,17 @@
                                 <td>{{ $project->date ?? 'N/A' }}</td>
                         
                                  <td>
-                                    <span class="badge {{ $project->status == 'Dev' ? 'badge-danger' :'badge-success'}}">
+                                    <span class="badge {{ $project->status == 'Dev' ? 'badge-danger' :'badge-success'}}" style="font-size:14px;">
                                         {{ $project->status == 'Dev' ? 'DEV' : 'LIVE' }}
                                     </span>
                                 </td> 
                                  @if (in_array(auth()->user()->role, ['Super Admin','Manager']))         
                                 <td>
-                                    {{-- <a href="" class="btn btn-inverse-dark">
-                                        <i class="mdi mdi-account-edit btn-icon-append"></i>Edit
-                                    </a> --}}
-                                    <a href="{{ route('admin.project.edit', $project->id) }}" class="btn btn-inverse-dark "><i class="mdi mdi-account-edit btn-icon-append"></i>Edit</a>
+                                    <button type="button" class="btn btn-inverse-dark btn-icon">
+                                                    <a href="{{ route('admin.project.edit', $project->id) }}"><i
+                                                            class="mdi mdi-account-edit btn-icon-append"
+                                                            style="color:black;font-size:20px;"></i></a>
+                                                </button>
                                     @if (in_array(auth()->user()->role, ['Super Admin']))    
                                     <form action="{{ route('admin.project.destroy', $project->id) }}" method="POST" style="display:inline-block;">
                                         @csrf

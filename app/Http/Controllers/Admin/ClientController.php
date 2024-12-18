@@ -48,13 +48,7 @@ class ClientController extends Controller
         return redirect()->route('admin.clients.index')->with('success', 'Client created successfully.');
     }
 
-    /**
-     * Display the specified client.
-     */
-    public function show(Client $client)
-    {
-        return view('clients.show', compact('client'));
-    }
+  
 
     /**
      * Show the form for editing the specified client.
@@ -97,5 +91,11 @@ class ClientController extends Controller
         $client->save();
 
         return redirect()->route('admin.clients.index')->with('success', 'Client deleted successfully.');
+    }
+
+    public function show($id)
+    {
+        $client = Client::with('projects')->findOrFail($id);
+        return view('admin.clients.details', compact('client'));
     }
 }
