@@ -17,7 +17,7 @@ class CreateTaskCheckListTable extends Migration
         Schema::create('task_check_lists', function (Blueprint $table) {
             $table->id(); // Primary key
             $table->unsignedBigInteger('taskId')->nullable(); // Foreign key to tasks table
-            $table->string('taskValue')->nullable(); // Value of the checklist item
+            $table->string('checklist_name')->nullable(); // Value of the checklist item
             $table->unsignedBigInteger('created_by')->nullable(); // User who created it
       
             $table->boolean('isactive')->default(1); // Active status

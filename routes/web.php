@@ -76,7 +76,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/department/{id}', [DepartmentController::class, 'update'])->name('department.update');
         //  Route::get('/department/detete/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
         Route::delete('/department/delete/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy');
-    
+
 
         //Project management Route
         Route::get('/project', [ProjectController::class, 'index'])->name('projects.index');
@@ -87,6 +87,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update');
         Route::post('/project/employee/list', [ProjectController::class, 'showByList'])->name('project.employee.list');
         Route::delete('/project/delete/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
+        Route::get('/project/{id}', [ProjectController::class, 'show'])->name('project.show');
 
         //Module management Route
         Route::get('/module', [ModuleController::class, 'index'])->name('modules.index');
@@ -108,9 +109,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/task/edit/{id}', [TaskController::class, 'edit'])->name('task.edit');
         Route::put('/task/{id}', [TaskController::class, 'update'])->name('task.update');
         Route::delete('/task/delete/{id}', [TaskController::class, 'destroy'])->name('task.destroy');
-     
-
-
     });
 });
 

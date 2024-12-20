@@ -12,9 +12,9 @@
 
         <!-- Task Name -->
         <div class="form-group">
-            <label for="name">Task Name</label>
-            <input type="text" name="name" id="name" class="form-control"   value="{{ old('name', $task->name) }}">
-            @error('name')
+            <label for="task_name">Task Name</label>
+            <input type="text" name="task_name" id="task_name" class="form-control"   value="{{ old('task_name', $task->task_name) }}">
+            @error('task_name')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
             @enderror
         </div>
@@ -36,7 +36,7 @@
         
         <!-- Task Value Checklist -->
         <div class="form-group">
-            <label for="taskValue">Task Value Checklist</label>
+            <label for="checklist_name">Checklist</label>
             <div id="taskValueContainer">
                 @foreach ($taskCheckList as $checklist)
                 {{-- {{dd( $checklist);}} --}}
@@ -81,7 +81,7 @@
                             </div>
                             
                         </div>
-                        <input type="text" name="taskValue[]" class="form-control" value="{{ old('taskValue.' . $loop->index , $checklist->taskValue) }}">
+                        <input type="text" name="checklist_name[]" class="form-control" value="{{ old('checklist_name.' . $loop->index , $checklist->checklist_name) }}">
                         
                         @php
                             $com = $comment->firstWhere('taskCheckListId', $checklist->id);
@@ -104,7 +104,7 @@
                                 </button>
                             </form> --}}
           {{-- {{dd($com->id ?? 'jhb' );}} --}}
-                            <a href="{{ route('admin.task.taskList.destroy', ['idc'=> $checklist->id , 'idm'=>  $com->id ?? '00' ]) }} "  
+                            <a href=""  
                                 class="btn btn-danger remove"
                                 >Remove</a>
                            
@@ -273,7 +273,7 @@ $(document).on('click', '.add-more', function () {
                     <input type="checkbox" name="isactive[]" value="0" onchange="this.value = this.checked ? 0 : 1;">
                 </div>
             </div>
-            <input type="text" name="taskValue[]" class="form-control" placeholder="Enter task value">
+            <input type="text" name="checklist_name[]" class="form-control" placeholder="Enter task value">
             <div class="form-group mt-2">
                 <textarea name="commentValue[]" class="form-control" rows="2" placeholder="Enter comment"></textarea>
             </div>

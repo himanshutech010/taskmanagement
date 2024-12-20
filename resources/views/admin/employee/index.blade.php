@@ -50,7 +50,7 @@
                                     <tr>
                                         <td><a href="#" class="view-employee-details" data-id="{{ $employee->id }}"
                                                 data-toggle="modal" data-target="#employeeDetailsModal"
-                                                style="color:green;text-decoration: none;">
+                                                style="color:green;text-decoration: none;font-weight: bold;">
                                                 {{ $employee->staff_id }}
                                             </a></td>
                                         <td>{{ $employee->name }}</td>
@@ -112,7 +112,7 @@
                                                 <div class="modal-body">
                                                     <ul>
                                                         @forelse($employee->departments as $department)
-                                                            <li> <span style="color:green;">{{ $department->name }}</span>
+                                                            <li> <span>{{ $department->name }}</span>
                                                             </li>
                                                         @empty
                                                             <span style="color:red;">No departments assigned.</span>

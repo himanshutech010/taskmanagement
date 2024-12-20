@@ -3328,7 +3328,7 @@ progress {
   --bs-table-active-color: #212529;
   --bs-table-active-bg: rgba(0, 0, 0, 0.1);
   --bs-table-hover-color: #212529;
-  --bs-table-hover-bg: #f2edf3;
+  --bs-table-hover-bg: #edf3ee;
   width: 100%;
   margin-bottom: 1rem;
   color: #212529;
@@ -11914,7 +11914,7 @@ code {
 
 .badge-danger {
   font-size: 16px;
-  background: #be0002;
+  background: #8f1111 !important;
   color: #ffffff; }
 
 .badge-light {

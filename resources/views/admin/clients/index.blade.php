@@ -45,7 +45,7 @@
                                 <tr>
                                     <td><a href="#" class="view-client-details" data-id="{{ $client->id }}"
                                                 data-toggle="modal" data-target="#clientDetailsModal"
-                                                style="color:green;text-decoration: none;">
+                                                style="color:green;text-decoration: none;font-weight: bold;">
                                                 {{ $client->client_name }}
                                             </a></td>
                                     <td>{{ $client->email }}</td>

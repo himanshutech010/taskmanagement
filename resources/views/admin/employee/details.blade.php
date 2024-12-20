@@ -38,7 +38,7 @@
       </p>
       <p><strong>Departments:</strong>
          @forelse($employee->departments as $key => $department)
-            <span style="color:green;">{{ $department->name }}</span>{{ $key < $employee->departments->count() - 1 ? ', ' : '' }}
+            <span>{{ $department->name }}</span>{{ $key < $employee->departments->count() - 1 ? ', ' : '' }}
          @empty
             <span style="color:red;">No departments assigned.</span>
          @endforelse

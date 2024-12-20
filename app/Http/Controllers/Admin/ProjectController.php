@@ -160,4 +160,10 @@ class ProjectController extends Controller
 
         return redirect()->route('admin.projects.index')->with('success', ' Project deleted successfully');
     }
+
+    public function show($id)
+    {
+        $project = Project::with(['client', 'assignments.department', 'assignments.employee'])->findOrFail($id);
+        return view('admin.project.details', compact('project'));
+    }
 }

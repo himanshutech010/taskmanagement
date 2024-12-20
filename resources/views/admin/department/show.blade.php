@@ -88,11 +88,11 @@
                                     <tr>
                                         <td><a href="#" class="view-employee-details" data-id="{{ $employee->id }}"
                                                 data-toggle="modal" data-target="#employeeDetailsModal"
-                                                style="color:green;text-decoration: none;">
+                                                style="color:green;text-decoration: none;font-weight: bold;">
                                                 {{ $employee->staff_id }}
                                             </a></td>
                                         @if ($employee->status == 0)
-                                            <td><span class="text-danger">{{ $employee->name }}&nbsp(Inactive)</span></td>
+                                            <td>{{ $employee->name }}<span class="inactive-badge">Inactive</span></span></td>
                                         @else
                                             <td>{{ $employee->name }}</td>
                                         @endif

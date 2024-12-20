@@ -12,22 +12,23 @@
                     <i class="mdi  mdi-linkedin-box" style="font-size: 30px;"></i>
                 </a>&nbsp
             @endif
-            @if($client->skype)
-                                            <a href="{{ $client->skype }}" target="_blank" >
-                                            <i class="mdi mdi-skype-business" style="font-size: 30px;"></i> 
-                                            </a>
-                                      
-                                        @endif
+            @if ($client->skype)
+                <a href="{{ $client->skype }}" target="_blank">
+                    <i class="mdi mdi-skype-business" style="font-size: 30px;"></i>
+                </a>
+            @endif
         </div>
     </div>
     <div class="profile-card-bottom">
-    <p><strong>Project:</strong> 
-        @foreach($client->projects as $project)
-        <li><span style="font-size:18px; color:green;">{{ $project->name }} </span>-  <span class="badge {{ $project->status == 'Dev' ? 'badge-danger' :'badge-success'}}" style="font-size:14px;">
-                                        {{ $project->status == 'Dev' ? 'DEV' : 'LIVE' }}
-                                    </span></li>
-    @endforeach
-    </p>
+        <p><strong>Project:</strong>
+            @foreach ($client->projects as $project)
+                <li><span style="font-size:18px;">{{ $project->name }} </span>- <span
+                        class="badge {{ $project->status == 'Dev' ? 'badge-danger' : 'badge-success' }}"
+                        style="font-size:14px;">
+                        {{ $project->status == 'Dev' ? 'DEV' : 'LIVE' }}
+                    </span></li>
+            @endforeach
+        </p>
     </div>
 </div>
 

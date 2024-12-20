@@ -60,7 +60,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.task.index') }}"> 
+              <a class="nav-link " href="{{ route('admin.task.index') }}"> 
                 <span class="menu-title">Task</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>

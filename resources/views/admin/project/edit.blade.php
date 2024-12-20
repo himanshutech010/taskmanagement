@@ -91,7 +91,7 @@
                                             name="employees[]" value="{{ $employee }}" onchange="updateModeratorDropdown()"
                                          
                                             {{ in_array($employee, old('employees', $assignedEmployees)) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="employee-{{ $employee }}"><span class="text-danger">{{ $emp->name}}->Inactive</span></label>
+                                        <label class="form-check-label" for="employee-{{ $employee }}"><span class="text-danger">{{ $emp->name}}(Inactive)</span></label>
                                     </div>  
                                     @else  
                                     <div class="form-check">

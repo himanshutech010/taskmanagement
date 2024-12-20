@@ -42,7 +42,7 @@
                             <div class="d-flex justify-content-center gap-3">
                                 <a href="{{ route('admin.department.edit', ['id' => $dept->id]) }}"
                                     class="btn btn-inverse-dark btn-icon-text" style="background-color: transparent;"><i
-                                        class="mdi mdi-account-edit btn-icon-append" style="font-size:20px;"></i></a>
+                                        class="mdi mdi-account-edit btn-icon-append" style="font-size:20px;color:black;"></i></a>
                                 <form action="{{ route('admin.department.destroy', ['id' => $dept->id]) }}" method="POST"
                                     style="display:inline-block;">
                                     @csrf
@@ -50,7 +50,7 @@
                                     <button type="submit" class="btn btn-inverse-dark"
                                         onclick="return confirm('Are you sure you want to delete this department?')"
                                         style="background-color: transparent;"><i class="mdi mdi-delete"
-                                            style="font-size: 20px;"></i></button>
+                                            style="font-size: 20px;color:black;"></i></button>
                                 </form>
 
                             </div>

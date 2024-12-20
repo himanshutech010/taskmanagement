@@ -24,6 +24,7 @@ class Project extends Model
     protected $casts = [
 
         'isdeleted' => 'boolean',
+        'date' => 'datetime',
 
     ];
     // Relationship: A project belongs to a client
