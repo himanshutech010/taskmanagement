@@ -36,7 +36,6 @@
                                     <th>Emp ID</th>
                                     <th>Name</th>
                                     <th>Email id</th>
-
                                     <th>Role</th>
                                     <th>Departments</th>
                                     <th>Status</th>

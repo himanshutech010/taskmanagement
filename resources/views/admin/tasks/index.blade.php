@@ -44,7 +44,7 @@
                             <tbody>
                                 @foreach ($tasks as $task)
                                     <tr>
-                                        <td>{{ $task->name }}</td>
+                                        <td>{{ $task->task_name }}</td>
                                         <td>{{ $task->created_date }}</td>
                                         <td>{{ $task->highPriority ? 'Yes' : 'No' }}</td>
                                         <td>{{ $task->Deadline ? $task->Deadline : 'N/A' }}</td>

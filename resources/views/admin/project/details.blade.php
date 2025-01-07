@@ -25,7 +25,7 @@
                     @if ($assignment->is_moderator)
                         <span class="role-badge">Moderator</span>
                     @endif
-                     @if ($assignment->employee->status== 0)
+                    @if ($assignment->employee->status == 0)
                         <span class="role-inactive">Currently Inactive</span>
                     @endif
                 </div>
@@ -101,65 +101,66 @@
         height: 150px;
         object-fit: cover;
     }
+
     .profile-card-bottom {
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-}
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+    }
 
-.assignment-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-}
+    .assignment-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
 
-.assignment-card {
-    background: white;
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-}
+    .assignment-card {
+        background: white;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out;
+    }
 
-.assignment-card:hover {
-    transform: scale(1.05);
-}
+    .assignment-card:hover {
+        transform: scale(1.05);
+    }
 
-.assignment-info {
-    font-size: 16px;
-    font-weight: 600;
-}
+    .assignment-info {
+        font-size: 16px;
+        font-weight: 600;
+    }
 
-.employee-name {
-    color: #333;
-}
+    .employee-name {
+        color: #333;
+    }
 
-.department-name {
-    color: #555;
-    font-size: 14px;
-}
+    .department-name {
+        color: #555;
+        font-size: 14px;
+    }
 
-.role-badge {
-    margin-top: 5px;
-    display: inline-block;
-    background: #1a387d;
-    color: white;
-    padding: 3px 8px;
-    font-size: 12px;
-    border-radius: 5px;
-   
-}
+    .role-badge {
+        margin-top: 5px;
+        display: inline-block;
+        background: #1a387d;
+        color: white;
+        padding: 3px 8px;
+        font-size: 12px;
+        border-radius: 5px;
 
-.role-inactive {
-    margin-top: 5px;
-    display: inline-block;
-    background: #8f1111;
-    color: white;
-    padding: 3px 8px;
-    font-size: 12px;
-    border-radius: 5px;
+    }
 
-}
+    .role-inactive {
+        margin-top: 5px;
+        display: inline-block;
+        background: #8f1111;
+        color: white;
+        padding: 3px 8px;
+        font-size: 12px;
+        border-radius: 5px;
+
+    }
 </style>

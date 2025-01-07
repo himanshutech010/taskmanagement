@@ -11,26 +11,21 @@ use App\Http\Controllers\Controller;
 
 class DepartmentController extends Controller
 {
-    /**
-     * Display a listing of the departments with users.
-     */
+
+
     public function index()
     {
-        $departments = Department::with('user')->get(); 
+        $departments = Department::with('user')->get();
         return view('admin.department.index', compact('departments'));
     }
 
-    /**
-     * Show the form for creating a new department.
-     */
+
     public function create()
     {
         return view('admin.department.create');
     }
 
-    /**
-     * Store a newly created department in storage.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -43,18 +38,10 @@ class DepartmentController extends Controller
         return redirect()->route('admin.department.index')->with('success', 'Department created successfully.');
     }
 
-    /**
-     * Display the specified department along with its users.
-     */
-
-
 
     public function show($id)
     {
 
-        // $department = Department::with(['users' => function ($query) {
-        //     $query->where('isdeleted', 0)->where('status', 1);
-        // }])->findOrFail($id);
         $department = Department::with(['users' => function ($query) {
             $query->where('isdeleted', 0);
         }])->findOrFail($id);
@@ -70,37 +57,24 @@ class DepartmentController extends Controller
         return view('admin.department.show', compact('department', 'unassignedUsers'));
     }
 
-    /**
-     * Show the form for editing the specified department.
-     */
 
     public function edit($id)
     {
-        // dd($id);
         $department = Department::findOrFail($id);
         return view('admin.department.edit', compact('department'));
     }
 
 
-    /**
-     * Update the specified department in storage.
-     */
+
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
         ]);
-
-
         $department = Department::findOrFail($id);
-
-
         $department->update([
             'name' => $request->input('name'),
         ]);
-
-
         return redirect()->route('admin.department.index')->with('success', 'Department updated successfully.');
     }
 
@@ -115,9 +89,6 @@ class DepartmentController extends Controller
     }
 
 
-    /**
-     * Assign users to a department.
-     */
     public function assignUser(Request $request, $id)
     {
         $department = Department::findOrFail($id);

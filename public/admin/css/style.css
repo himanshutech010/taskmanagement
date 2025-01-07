@@ -3650,7 +3650,7 @@ progress {
     margin-inline-end: 0.81rem; }
 
 .form-control-lg {
-  min-height: 3.175rem;
+  min-height: 3.0rem !important;
   padding: 0.94rem 1.94rem;
   font-size: 1.25rem;
   border-radius: 0.3rem; }

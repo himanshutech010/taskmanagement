@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TaskController;
-
+use App\Http\Controllers\Admin\DsrController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -97,19 +97,35 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/module/edit/{id}', [ModuleController::class, 'edit'])->name('modules.edit');
         Route::put('/module/{id}', [ModuleController::class, 'update'])->name('modules.update');
 
-        //Tasks management Route //
-        Route::get('/task', [TaskController::class, 'index'])->name('task.index');
-        Route::get('/task/create', [TaskController::class, 'create'])->name('task.create');
-        Route::post('/task', [TaskController::class, 'store'])->name('task.store');
+       
+        //Tasks management Route
+        Route::get('/tasks', [TaskController::class, 'index'])->name('task.index');
+        Route::get('/tasks/create', [TaskController::class, 'create'])->name('task.create');
+        Route::post('/tasks', [TaskController::class, 'store'])->name('task.store');
         // Route::post('/project/task/list', [TaskController::class, 'empList'])->name('task.module.list');
         // Route::post('/project/task/list', [TaskController::class, 'empList'])->name('task.employee.list');task.destroy
 
-        Route::post('/project/task/modules', [TaskController::class, 'loadModules'])->name('task.module.list');
-        Route::post('/project/task/employees', [TaskController::class, 'loadEmployees'])->name('task.employee.list');
-        Route::get('/task/edit/{id}', [TaskController::class, 'edit'])->name('task.edit');
-        Route::put('/task/{id}', [TaskController::class, 'update'])->name('task.update');
-        Route::delete('/task/delete/{id}', [TaskController::class, 'destroy'])->name('task.destroy');
-    });
+        Route::post('/project/tasks/modules', [TaskController::class, 'loadModules'])->name('task.module.list');
+        Route::post('/project/tasks/employees', [TaskController::class, 'loadEmployees'])->name('task.employee.list');
+        Route::get('/tasks/edit/{id}', [TaskController::class, 'edit'])->name('task.edit');
+        Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('task.update');
+        Route::delete('/tasks/delete/{id}', [TaskController::class, 'destroy'])->name('task.destroy');
+        Route::get('/tasks/delete/chacklist/{idc}/{idm?}', [TaskController::class, 'destroy_cm'])->name('task.taskList.destroy');
+     
+
+        //DSRS management Route //
+        Route::get('/dsr', [DsrController::class, 'index'])->name('dsr.index');
+        Route::get('/dsr/create', [DsrController::class, 'create'])->name('dsr.create');
+        Route::post('/dsr', [DsrController::class, 'store'])->name('dsr.store');
+        // Route::post('/project/task/modules', [DsrController::class, 'loadModules'])->name('task.module.list');
+        // Route::post('/project/task/employees', [DsrController::class, 'loadEmployees'])->name('task.employee.list');
+        Route::get('/dsr/edit/{id}', [DsrController::class, 'edit'])->name('dsr.edit');
+        Route::put('/dsr/{id}', [DsrController::class, 'update'])->name('dsr.update');
+        Route::delete('/dsr/delete/{id}', [DsrController::class, 'destroy'])->name('dsr.destroy');
+        // Route::get('/task/delete/chacklist/{idc}/{idm?}', [DsrController::class, 'destroy_cm'])->name('task.taskList.destroy');
+
+     
+});
 });
 
 // Redirect /login to /admin/login

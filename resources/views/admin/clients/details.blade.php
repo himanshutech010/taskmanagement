@@ -2,7 +2,6 @@
     <div class="profile-card-top">
         <div class="profile-card-left">
             <h3>{{ $client->client_name }}</h3>
-
             <p><strong>Email:</strong> {{ $client->email }}</p>
             <p><strong>Phone:</strong> {{ $client->mobile }}</p>
         </div>

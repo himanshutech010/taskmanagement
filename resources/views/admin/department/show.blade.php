@@ -56,9 +56,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            
                             <button type="submit" class="btn btn-gradient-success">Assign</button>
-
                         </div>
                     </form>
                 </div>
@@ -76,7 +74,6 @@
                                     <th>Emp ID</th>
                                     <th>Name</th>
                                     <th>Email ID</th>
-
                                     <th>Phone No.</th>
                                     @if (in_array(auth()->user()->role, ['Super Admin']))
                                         <th>Action</th>
@@ -92,7 +89,8 @@
                                                 {{ $employee->staff_id }}
                                             </a></td>
                                         @if ($employee->status == 0)
-                                            <td>{{ $employee->name }}<span class="inactive-badge">Inactive</span></span></td>
+                                            <td>{{ $employee->name }}<span class="inactive-badge">Inactive</span></span>
+                                            </td>
                                         @else
                                             <td>{{ $employee->name }}</td>
                                         @endif
@@ -105,7 +103,7 @@
                                                     <a href="{{ route('admin.employee.edit', $employee->id) }}"><i
                                                             class="mdi mdi-account-edit btn-icon-append"
                                                             style="color:black;font-size:20px;"></i></a>
-                                                </button> 
+                                                </button>
                                                 <form
                                                     action="{{ route('admin.department.remove', ['departmentId' => $department->id, 'userId' => $employee->id]) }}"
                                                     method="POST" style="display:inline-block;">
@@ -115,11 +113,10 @@
                                                         onclick="return confirm('Are you sure you want to remove this employee?')"><i
                                                             class="mdi mdi-delete" style="font-size: 20px;"></i></button>
                                                 </form>
-
                                             </td>
                                         @endif
                                     </tr>
-                                       <!-- Employee Details Modal -->
+                                    <!-- Employee Details Modal -->
                                     <div class="modal fade" id="employeeDetailsModal" tabindex="-1" role="dialog"
                                         aria-labelledby="employeeDetailsModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-xl" role="document">
@@ -156,7 +153,7 @@
         </div>
     </div>
 
-   <script>
+    <script>
         $(document).ready(function() {
             $('.view-employee-details').on('click', function() {
                 const employeeId = $(this).data('id');
@@ -178,6 +175,5 @@
                 });
             });
         });
-
     </script>
 @endsection

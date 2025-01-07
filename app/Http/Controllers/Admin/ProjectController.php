@@ -21,7 +21,7 @@ class ProjectController extends Controller
 
 
     // Show form to create a new project
-    
+
     public function create()
     {
         $clients = Client::where('isdeleted', 0)->get();
@@ -89,10 +89,9 @@ class ProjectController extends Controller
     {
         // Retrieve the project with its related data
         $project = Project::with(['assignments', 'users'])->findOrFail($id);
-        // dd($project);
         // $project= $project->where('isdeleted', 0);
         $clients = Client::where('isdeleted', 0)->get();
-      //  $clients = Client::all();
+        //  $clients = Client::all();
         $departments = Department::all();
         $assinProjects = ProjectAssign::with('department')->get();
 
@@ -103,8 +102,6 @@ class ProjectController extends Controller
         $assignedEmployees = $project->assignments->pluck('user_id')->toArray();
 
         // $assignedEmployees = $project->assignments->toArray();
-        //    dd( $assignedEmployees);
-        // dd($assignedEmployees);
         $moderator = $assinProjects->where('project_id', $project->id)->where('is_moderator', true)->first()?->employee;
         // $moderator = $project->assignments->where('is_moderator', true)->first()?->user; 
 

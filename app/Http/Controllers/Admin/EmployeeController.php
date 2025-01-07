@@ -145,16 +145,16 @@ class EmployeeController extends Controller
     }
 
     public function toggleStatus(Request $request)
-{
-    $employee = User::findOrFail($request->id);
-    $employee->status = !$employee->status;
-    $employee->save();
+    {
+        $employee = User::findOrFail($request->id);
+        $employee->status = !$employee->status;
+        $employee->save();
 
-    return response()->json([
-        'success' => true,
-        'newStatus' => $employee->status,
-        'statusText' => $employee->status == 1 ? 'Active' : 'Inactive',
-        'statusClass' => $employee->status == 1 ? 'badge-success' : 'badge-danger'
-    ]);
-}
+        return response()->json([
+            'success' => true,
+            'newStatus' => $employee->status,
+            'statusText' => $employee->status == 1 ? 'Active' : 'Inactive',
+            'statusClass' => $employee->status == 1 ? 'badge-success' : 'badge-danger'
+        ]);
+    }
 }

@@ -16,96 +16,74 @@ use App\Models\ProjectAssign;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the tasks.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $tasks = Task::where('isdelete', 0)->get();
         return view('admin.tasks.index', compact('tasks'));
     }
 
-    /**
-     * Show the form for creating a new task.
-     *
-     * @return \Illuminate\View\View
-     */
-
 
     public function create()
     {
-        // Fetch all modules, projects, and users from the database
         $modules = ProjectModule::all();
         $projects = Project::all();
         $users = User::where('isdeleted', 0)->where('status', 1)->get();
-        // dd($users);
-
         return view('admin.tasks.create', compact('modules', 'projects', 'users'));
     }
 
 
-    /**
-     * Store a newly created task in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
     public function store(Request $request)
     {
-
-        // Validate the incoming request data
         $validated = $request->validate([
-            'task_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'created_date' => 'required|date',
-            'highPriority' => 'boolean',
+            'highPriority' => 'nullable|boolean',
             'Deadline' => 'nullable|date',
             'Module_id' => 'nullable|integer|exists:project_modules,id',
             'project_id' => 'nullable|integer|exists:projects,id',
             'userAssigneId' => 'required|array',
             'userAssigneId.*' => 'exists:users,id',
-            'checklist_name' => 'nullable|array',
-            'checklist_name.*' => 'string|max:255',
+            'checklist1' => 'nullable|array',
+            'checklist1.*.checklist_name' => 'required|string|max:255',
+            'checklist1.*.is_active' => 'nullable|boolean',
             'commentValue' => 'nullable|array',
             'commentValue.*' => 'nullable|string|max:255',
-            'isactive' => 'nullable|array',
-            'isactive.*' => 'boolean',
         ]);
 
-        //  dd(  $validated['isactive']);
-        //  dd($request);
+        // Adjust `highPriority` and other checkbox-related values
+        $validated['highPriority'] = $request->has('highPriority') ? 0 : 1;
+
         // Automatically assign the user who created the task
         $validated['created_by'] = auth()->user()->id;
 
         // Create the task
         $task = Task::create([
-            'task_name' => $validated['task_name'],
+            'name' => $validated['name'],
             'created_date' => $validated['created_date'],
-            'highPriority' => $validated['highPriority'] ?? 0,
+            'highPriority' => $validated['highPriority'],
             'Deadline' => $validated['Deadline'] ?? null,
             'Module_id' => $validated['Module_id'] ?? null,
             'project_id' => $validated['project_id'] ?? null,
             'created_by' => $validated['created_by'],
         ]);
-        //  dd( $validated['isactive']);
+
         // Create associated task checklists and comments
-        if (!empty($validated['checklist_name'])) {
-            foreach ($validated['checklist_name'] as $index => $checklist_name) {
+        if (!empty($validated['checklist1'])) {
+            foreach ($validated['checklist1'] as $checklist) {
                 $checkList = TaskCheckList::create([
                     'taskId' => $task->id,
-                    'checklist_name' => $checklist_name,
+                    'taskValue' => $checklist['checklist_name'],
                     'created_by' => $validated['created_by'],
-                    'isactive' => $validated['isactive'][$index] ?? 1,
+                    'isactive' => isset($checklist['is_active']) && $checklist['is_active'] ? 0 : 1, // If checked, value is 0; otherwise, 1
                     'isdelete' => 0,
                 ]);
 
                 // Add comment for the checklist if provided
-                if (!empty($validated['commentValue'][$index])) {
+                if (!empty($validated['commentValue'][$checklist['checklist_name']])) {
                     TaskCheckListComment::create([
                         'taskCheckListId' => $checkList->id,
-                        'commentValue' => $validated['commentValue'][$index],
+                        'commentValue' => $validated['commentValue'][$checklist['checklist_name']],
                         'created_by' => $validated['created_by'],
                         'isactive' => 1,
                         'isdelete' => 0,
@@ -128,8 +106,6 @@ class TaskController extends Controller
         // Redirect back with a success message
         return redirect()->route('admin.task.index')->with('success', 'Task created successfully!');
     }
-
-
 
 
     public function loadModules(Request $request)
@@ -173,14 +149,6 @@ class TaskController extends Controller
     }
 
 
-
-
-    /**
-     * Display the specified task.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         // Fetch the task by id
@@ -193,51 +161,23 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
-    /**
-     * Update the specified task in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-
-
     public function edit($id)
     {
         $task = Task::findOrFail($id);
         $projects = Project::all();
         $modules = ProjectModule::where('project_id', $task->project_id)->get();
-        // dd($id);
         $taskCheckList = TaskCheckList::where('taskId', $id)->where('isdelete', 0)->get();
-        // dd( $taskCheckList);
         $users = User::get();
-
         $comment = TaskCheckListComment::all();
-
-        // $assignedUsers = $task->userAssigneId; 
-
-        // dd($assignedUsers);
-
         return view('admin.tasks.edit', compact('task', 'projects', 'modules', 'taskCheckList', 'comment', 'users'));
     }
 
 
-
-    // <input type="hidden" name="taskCheckListId[]" value="{{ $checklist->id }}">
-
-
-
-    // <input type="hidden" name="commentValueId[]" value="{{ $com->id ?? '' }}">
-
-
-
     public function update(Request $request, $id)
     {
-        // dd("jhfijnis");
         $validated = $request->validate([
             // Validation rules
-            'task_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'created_date' => 'required|date',
             'highPriority' => 'boolean',
             'Deadline' => 'nullable|date',
@@ -245,8 +185,8 @@ class TaskController extends Controller
             'project_id' => 'nullable|integer|exists:projects,id',
             'userAssigneId' => 'required|array',
             'userAssigneId.*' => 'exists:users,id',
-            'checklist_name' => 'nullable|array',
-            'checklist_name.*' => 'string|max:255',
+            'taskValue' => 'nullable|array',
+            'taskValue.*' => 'string|max:255',
             'commentValue' => 'nullable|array',
             'commentValue.*' => 'nullable|string|max:255',
             'isactive' => 'array',
@@ -263,7 +203,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
 
         $task->update([
-            'task_name' => $validated['task_name'],
+            'name' => $validated['name'],
             'created_date' => $validated['created_date'],
             'highPriority' => $validated['highPriority'] ?? 0,
             'Deadline' => $validated['Deadline'] ?? null,
@@ -276,8 +216,8 @@ class TaskController extends Controller
 
 
         // Handle task values and comments
-        if (!empty($validated['checklist_name'])) {
-            foreach ($validated['checklist_name'] as $index => $checklist_name) {
+        if (!empty($validated['taskValue'])) {
+            foreach ($validated['taskValue'] as $index => $taskValue) {
                 //  dd($index);
                 $checkListId = $validated['taskCheckListIdd'][$index] ?? null;
                 // dd($checkListId);
@@ -290,7 +230,7 @@ class TaskController extends Controller
 
                     if ($checkList) {
                         // Update the existing checklist values
-                        $checkList->checklist_name = $checklist_name;
+                        $checkList->taskValue = $taskValue;
                         $checkList->modified_by = $validated['modified_by'];
                         $checkList->isactive = $validated['isactive'][$index] ?? 1;
                         // $checkList->isdelete = 0;
@@ -304,7 +244,7 @@ class TaskController extends Controller
                     // Create a new checklist if no ID is provided
                     $checkList = new TaskCheckList();
                     $checkList->taskId = $task->id;
-                    $checkList->checklist_name = $checklist_name;
+                    $checkList->taskValue = $taskValue;
                     $checkList->isactive = $validated['isactive'][$index] ?? 1;
                     $checkList->isdelete = 0;
                     $checkList->created_by = $validated['modified_by'];
@@ -362,12 +302,8 @@ class TaskController extends Controller
 
     public function destroy_cm($idc, $idm)
     {
-        //$idm
-        // dd("vhvxd");
-        // dd($idm);
-        $taskc = TaskCheckList::find($idc);
 
-        // $taskm = TaskCheckListComment::find($idm);
+        $taskc = TaskCheckList::find($idc);
 
         if (!$taskc || $taskc->isdelete) {
             return response()->json(['message' => 'Task not found'], 404);
@@ -385,12 +321,7 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'TaskCheckList deleted successfully');
     }
 
-    /**
-     * Soft delete the specified task.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         // Fetch the task by id

@@ -1,153 +1,148 @@
 @extends('layout.admin.default')
-@section('title','Create Module')
+@section('title', 'Create Module')
 @section('content')
-<div class="content-wrapper">
-    <div class="page-header">
-        <h3 class="page-title"> Create a Module </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('admin.modules.index') }}" class="btn btn-block btn-lg btn-gradient-success">Back</a>
-                </li>
-            </ol>
-        </nav>
-    </div>
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Module Entry</h4>
-                    <form class="forms-sample" method="post" action="{{ route('admin.modules.store') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="project">Select Project<span class="text-danger">*</span></label>
-                                <select id="project" name="project_id" class="form-control form-control-sm" required onchange="loadProjectEmployees(this.value)">
-                                    <option value="" disabled selected>Choose...</option>
-                                    @foreach($projects as $project)
-                                        <option value="{{ $project->id }}">{{ $project->name }}</option>
-                                    @endforeach
-                                 
-                                </select>
-                                @error('project_id')
-                                    <span class="error-message">{{ $message }}</span>
-                                @enderror
-                            </div>
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title"> Create a Module </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin.modules.index') }}"
+                            class="btn btn-block btn-lg btn-gradient-success">Back</a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Module Entry</h4>
+                        <form class="forms-sample" method="post" action="{{ route('admin.modules.store') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="project">Select Project<span class="text-danger">*</span></label>
+                                    <select id="project" name="project_id" class="form-control form-control-sm" required
+                                        onchange="loadProjectEmployees(this.value)">
+                                        <option value="" disabled selected>Choose...</option>
+                                        @foreach ($projects as $project)
+                                            <option value="{{ $project->id }}">{{ $project->name }}</option>
+                                        @endforeach
 
-                            <div class="form-group col-md-6">
-                                <label for="module_name">Module Name<span class="text-danger">*</span></label>
-                                <input id="module_name" class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Enter Module Name" required>
-                                @error('name')
-                                    <span class="error-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                {{-- <label for="employee">Assign Employee(s)<span class="text-danger">*</span></label>
-                                <select id="employee" name="employees[]" class="form-control" multiple required>
-                                    <!-- Employee options will be populated dynamically -->
-                                </select>
-                                @error('employees')
-                                    <span class="error-message">{{ $message }}</span>
-                                @enderror --}}
-                                <label for="employee-checkboxes">Assign Employee(s)<span class="text-danger">*</span></label>
-                                <div id="employee-checkboxes" class="checkit">
-                                    <!-- Employee checkboxes will be populated dynamically -->
+                                    </select>
+                                    @error('project_id')
+                                        <span class="error-message">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('employees')
-                                    <span class="error-message text-danger">{{ $message }}</span>
-                                @enderror
+
+                                <div class="form-group col-md-6">
+                                    <label for="module_name">Module Name<span class="text-danger">*</span></label>
+                                    <input id="module_name" class="form-control" type="text" name="name"
+                                        value="{{ old('name') }}" placeholder="Enter Module Name" required>
+                                    @error('name')
+                                        <span class="error-message">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-3">
-                                <label for="start_date">Start Date<span class="text-danger">*</span></label>
-                                <input id="start_date" name="start_date" class="form-control" type="date" value="{{ old('start_date') }}" required>
-                                @error('start_date')
-                                    <span class="error-message">{{ $message }}</span>
-                                @enderror
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="employee-checkboxes">Assign Employee(s)<span
+                                            class="text-danger">*</span></label>
+                                    <div id="employee-checkboxes" class="checkit">
+                                        <!-- Employee checkboxes will be populated dynamically -->
+                                    </div>
+                                    @error('employees')
+                                        <span class="error-message text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="start_date">Start Date<span class="text-danger">*</span></label>
+                                    <input id="start_date" name="start_date" class="form-control" type="date"
+                                        value="{{ old('start_date') }}" required>
+                                    @error('start_date')
+                                        <span class="error-message">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="end_date">End Date<span class="text-danger">*</span></label>
+                                    <input id="end_date" name="end_date" class="form-control" type="date"
+                                        value="{{ old('end_date') }}" required>
+                                    @error('end_date')
+                                        <span class="error-message">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="form-group col-md-3">
-                                <label for="end_date">End Date<span class="text-danger">*</span></label>
-                                <input id="end_date" name="end_date" class="form-control" type="date" value="{{ old('end_date') }}" required>
-                                @error('end_date')
-                                    <span class="error-message">{{ $message }}</span>
-                                @enderror
+                            <div class="row">
+
                             </div>
-                        </div>
 
-                        <div class="row">
-                          
-                        </div>
-
-                        <button type="submit" class="btn btn-gradient-success">Submit</button>
-                    </form>
+                            <button type="submit" class="btn btn-gradient-success">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
+    <script>
+        async function loadProjectEmployees(projectId) {
 
-
-
-
+            const employeeCheckboxContainer = document.getElementById('employee-checkboxes');
 
 
-async function loadProjectEmployees(projectId) {
+            employeeCheckboxContainer.innerHTML = '';
+            console.log(projectId);
 
-    const employeeCheckboxContainer = document.getElementById('employee-checkboxes');
+            try {
 
-    
-    employeeCheckboxContainer.innerHTML = '';
-    console.log(projectId);
+                const response = await fetch("{{ route('admin.modules.employee.list') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        id: projectId
+                    })
+                });
 
-    try {
-      
-        const response = await fetch("{{ route('admin.modules.employee.list') }}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            body: JSON.stringify({ id: projectId }) 
-        });
+                const data = await response.json();
 
-        const data = await response.json();
+                if (response.ok) {
 
-        if (response.ok) {
-       
-            data.employees.forEach(employee => {
-                const checkboxWrapper = document.createElement('div');
-                checkboxWrapper.className = 'form-check';
+                    data.employees.forEach(employee => {
+                        const checkboxWrapper = document.createElement('div');
+                        checkboxWrapper.className = 'form-check';
 
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.className = 'form-check-input checkitto';
-                checkbox.id = `employee-${employee.id}`;
-                checkbox.value = employee.id;
-                checkbox.name = 'employees[]';
-             
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.className = 'form-check-input checkitto';
+                        checkbox.id = `employee-${employee.id}`;
+                        checkbox.value = employee.id;
+                        checkbox.name = 'employees[]';
 
-                const label = document.createElement('label');
-                label.className = 'form-check-label';
-                label.htmlFor = `employee-${employee.id}`;
-                label.textContent = employee.name;
 
-                checkboxWrapper.appendChild(checkbox);
-                checkboxWrapper.appendChild(label);
-                employeeCheckboxContainer.appendChild(checkboxWrapper);
-            });
-        } else {
-            console.error('Failed to load employees:', data.message || 'Unknown error');
+                        const label = document.createElement('label');
+                        label.className = 'form-check-label';
+                        label.htmlFor = `employee-${employee.id}`;
+                        label.textContent = employee.name;
+
+                        checkboxWrapper.appendChild(checkbox);
+                        checkboxWrapper.appendChild(label);
+                        employeeCheckboxContainer.appendChild(checkboxWrapper);
+                    });
+                } else {
+                    console.error('Failed to load employees:', data.message || 'Unknown error');
+                }
+            } catch (error) {
+                console.error('Error fetching employees:', error);
+            }
         }
-    } catch (error) {
-        console.error('Error fetching employees:', error);
-    }
-}
-
-</script>
+    </script>
 @endsection

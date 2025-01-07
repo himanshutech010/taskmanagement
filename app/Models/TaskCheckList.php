@@ -33,8 +33,6 @@ class TaskCheckList extends Model
         return $this->belongsTo(TaskCheckListComment::class, 'taskCheckListId');
     }
 
-
-
     public function task()
     {
         return $this->belongsTo(Task::class, 'taskId');

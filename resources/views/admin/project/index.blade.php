@@ -83,7 +83,7 @@
                                                 View Team
                                             </button>
                                         </td>
-                                        <td>{{ $project->date ? $project->date->format('d-m-Y') : 'N/A'  }}</td>
+                                        <td>{{ $project->date ? $project->date->format('d-m-Y') : 'N/A' }}</td>
 
                                         <td>
                                             <span
@@ -134,7 +134,7 @@
                                                         @forelse($project->users as $user)
                                                             @if ($user->status == 0)
                                                                 <li><span class="text-danger">
-                                                                        {{ $user->name }}  (Inactive)</span></li>
+                                                                        {{ $user->name }} (Inactive)</span></li>
                                                             @else
                                                                 <li>{{ $user->name }}</li>
                                                             @endif
@@ -153,7 +153,7 @@
                                     </div>
                                     <!-- End Modal -->
 
-                                     <div class="modal fade" id="projectDetailsModal" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="projectDetailsModal" tabindex="-1" role="dialog"
                                         aria-labelledby="projectDetailsModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -207,6 +207,5 @@
                 });
             });
         });
-
     </script>
 @endsection

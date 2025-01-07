@@ -1,9 +1,6 @@
 @extends('layout.admin.default')
 @section('title', 'Departments')
 @section('content')
-
-
-
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">Departments Data</h3>
@@ -21,7 +18,6 @@
             @endif
         </div>
 
-        {{-- <div class="row d-flex "> --}}
         <div class="row ">
             @foreach ($departments as $dept)
                 <div class="col-md-3 d-flex align-items-stretch grid-margin">
@@ -42,7 +38,9 @@
                             <div class="d-flex justify-content-center gap-3">
                                 <a href="{{ route('admin.department.edit', ['id' => $dept->id]) }}"
                                     class="btn btn-inverse-dark btn-icon-text" style="background-color: transparent;"><i
-                                        class="mdi mdi-account-edit btn-icon-append" style="font-size:20px;color:black;"></i></a>
+                                        class="mdi mdi-account-edit btn-icon-append"
+                                        style="font-size:20px;color:black;"></i>
+                                </a>
                                 <form action="{{ route('admin.department.destroy', ['id' => $dept->id]) }}" method="POST"
                                     style="display:inline-block;">
                                     @csrf
@@ -52,7 +50,6 @@
                                         style="background-color: transparent;"><i class="mdi mdi-delete"
                                             style="font-size: 20px;color:black;"></i></button>
                                 </form>
-
                             </div>
                         @endif
                     </div>
@@ -60,6 +57,6 @@
             @endforeach
         </div>
     </div>
-    </div>
+
 
 @endsection
